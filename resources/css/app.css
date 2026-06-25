@@ -1,0 +1,17 @@
+@import 'tailwindcss';
+@import '@fortawesome/fontawesome-free/css/all.css';
+
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+@source '../../storage/framework/views/*.php';
+
+@theme {
+    --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
+        'Segoe UI Symbol', 'Noto Color Emoji';
+    --font-pixel: 'VT323', monospace;
+    --color-primary: var(--primary-color);
+    --color-secondary: var(--secondary-color);
+    --color-primary-pastel: var(--primary-pastel);
+    --color-secondary-pastel: var(--secondary-pastel);
+    --color-brutal-bg: var(--brutal-bg);
+    --animate-bounce-slow: bounce 3s infinite;
+}
