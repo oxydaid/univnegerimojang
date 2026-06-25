@@ -95,6 +95,39 @@ Untuk menjalankan server kampus ini di komputer Anda sendiri:
 
 ---
 
+## 🐳 Cara Memulai dengan Docker & Cloudflare Tunnel (Alternatif)
+
+Jika Anda ingin menjalankan server lokal menggunakan Docker dan mengeksposnya menggunakan Cloudflare Tunnel secara aman tanpa IP publik:
+
+1. **Sesuaikan Jaringan Database**
+   Buka file [docker-compose.yml](file:///home/aghata/Dokumen/laravel/mojang/docker-compose.yml) dan pastikan nama network database eksternal Anda sesuai di bagian paling bawah:
+   ```yaml
+   networks:
+     db-network:
+       name: nama_network_database_anda # Ganti dengan nama docker network database Anda
+       external: true
+   ```
+   *(Gunakan perintah `docker network ls` di terminal untuk melihat daftar network yang tersedia)*
+
+2. **Jalankan Container**
+   Jalankan perintah berikut di root folder proyek:
+   ```bash
+   CLOUDFLARE_TUNNEL_TOKEN="token-tunnel-anda" docker compose up -d --build
+   ```
+   *Catatan: Ganti `token-tunnel-anda` dengan Token Tunnel yang Anda dapatkan dari Dashboard Cloudflare Zero Trust. Jika Anda menuliskan token langsung di dalam `docker-compose.yml`, Anda cukup menjalankan `docker compose up -d --build`.*
+
+3. **Konfigurasi Routing di Cloudflare Zero Trust Dashboard**
+   Pada pengaturan Tunnel Anda di Dashboard Cloudflare Zero Trust:
+   - Tambahkan **Public Hostname** baru (misalnya `kampus.domainanda.com`).
+   - Atur **Service Type** menjadi `HTTP`.
+   - Atur **URL** menjadi `mojang-web:80` (mengarahkan langsung ke kontainer Nginx melalui DNS internal Docker).
+
+4. **Akses Aplikasi**
+   - **Publik (via Tunnel)**: Akses menggunakan domain publik yang telah Anda atur di Cloudflare.
+   - **Lokal**: Anda juga dapat mengakses secara langsung di browser lokal Anda via `http://localhost:8080`.
+
+---
+
 ## 🧪 Pengujian (Pest Test)
 Kampus kami bersertifikat bebas bug (hampir semuanya). Jalankan tes untuk memastikan Creeper tidak merusak kode:
 ```bash
