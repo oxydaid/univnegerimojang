@@ -59,9 +59,9 @@ test('submitting smpt registration sends registration waiting email to student',
         ->set('high_school', 'SMAN 1 Mojang')
         ->set('department_id', $dept->id)
         ->set('path', 'nilai')
-        ->set('skin', UploadedFile::fake()->image('skin.png'))
-        ->set('minecraft_stats', UploadedFile::fake()->image('stats.jpg'))
-        ->set('certificate', UploadedFile::fake()->image('cert.png'))
+        ->set('skin', UploadedFile::fake()->create('skin.png', 900))
+        ->set('minecraft_stats', UploadedFile::fake()->create('stats.jpg', 900))
+        ->set('certificate', UploadedFile::fake()->create('cert.png', 900))
         ->call('submit')
         ->assertHasNoErrors();
 
