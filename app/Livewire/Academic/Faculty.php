@@ -17,7 +17,7 @@ class Faculty extends Component
     public function render()
     {
         $faculty = FacultyModel::where('slug', $this->slug)
-            ->with(['departments.courses', 'departments.lecturers.user'])
+            ->with(['departments.courses', 'departments.lecturers.user', 'departments.students'])
             ->firstOrFail();
 
         // Calculate statistics

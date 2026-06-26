@@ -142,7 +142,7 @@
                             <div class="flex items-center justify-between p-2.5 border-2 border-slate-900 shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] hover:bg-slate-50 transition-colors">
                                 <div class="flex items-center gap-3">
                                     <div class="h-9 w-9 border-2 border-slate-900 bg-slate-100 flex-shrink-0 overflow-hidden">
-                                        <img src="{{ $lecturer->getAvatarUrl() }}" alt="{{ $lecturer->user->name }}" class="h-full w-full object-cover">
+                                        <img src="{{ $lecturer->getAvatarUrl() }}" alt="{{ $lecturer->user->name }}" width="36" height="36" loading="lazy" class="h-full w-full object-cover">
                                     </div>
                                     <div>
                                         <h4 class="text-xs font-bold text-slate-900 leading-tight">{{ $lecturer->user->name }}</h4>
@@ -174,7 +174,7 @@
                             <div class="flex items-center justify-between p-2.5 border-2 border-slate-900 shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]">
                                 <div class="flex items-center gap-3">
                                     <div class="h-9 w-9 border-2 border-slate-900 bg-slate-100 flex-shrink-0 overflow-hidden">
-                                        <img src="{{ $student->getAvatarUrl() }}" alt="{{ $student->user->name }}" class="h-full w-full object-cover">
+                                        <img src="{{ $student->getAvatarUrl() }}" alt="{{ $student->user->name }}" width="36" height="36" loading="lazy" class="h-full w-full object-cover">
                                     </div>
                                     <div>
                                         <h4 class="text-xs font-bold text-slate-900 leading-tight">{{ $student->user->name }}</h4>

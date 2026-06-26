@@ -29,6 +29,9 @@
                                 <img src="https://mc-heads.net/avatar/{{ strtolower(str_replace(' ', '', $alumnus['name'])) }}" 
                                      onerror="this.src='{{ $alumnus['skin_preview'] }}'"
                                      alt="{{ $alumnus['name'] }}" 
+                                     width="96"
+                                     height="96"
+                                     loading="lazy"
                                      class="h-full w-full object-cover">
                             </div>
                             

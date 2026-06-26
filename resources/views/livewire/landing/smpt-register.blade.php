@@ -148,11 +148,11 @@
                             <h4 class="text-xs font-bold text-slate-800">Contoh Screenshot Statistik Minecraft yang Sah (sebagai Rapot):</h4>
                             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                                 <div class="bg-white p-2 border border-slate-200">
-                                    <img src="{{ asset('images/documents/dokumen1.jpg') }}" alt="Contoh Statistik 1" class="w-full h-40 object-cover border border-slate-200">
+                                    <img src="{{ asset('images/documents/dokumen1.jpg') }}" alt="Contoh Statistik 1" width="400" height="160" loading="lazy" class="w-full h-40 object-cover border border-slate-200">
                                     <span class="text-xxs text-slate-500 text-center block mt-1">Halaman Utama Statistik Game</span>
                                 </div>
                                 <div class="bg-white p-2 border border-slate-200">
-                                    <img src="{{ asset('images/documents/dokumen2.jpg') }}" alt="Contoh Statistik 2" class="w-full h-40 object-cover border border-slate-200">
+                                    <img src="{{ asset('images/documents/dokumen2.jpg') }}" alt="Contoh Statistik 2" width="400" height="160" loading="lazy" class="w-full h-40 object-cover border border-slate-200">
                                     <span class="text-xxs text-slate-500 text-center block mt-1">Detail Blok / Item Crafted</span>
                                 </div>
                             </div>
@@ -282,7 +282,6 @@
                     </div>
                 </form>
             @endif
-        </div>
         </div>
         
         <!-- Status check promo banner -->

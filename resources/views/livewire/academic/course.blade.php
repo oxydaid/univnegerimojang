@@ -86,7 +86,7 @@
                             <div class="pt-4 border-t border-slate-100 flex items-center justify-between flex-wrap gap-4">
                                 <div class="flex items-center gap-3">
                                     <div class="h-10 w-10 border-2 border-slate-900 bg-slate-100 flex-shrink-0 overflow-hidden shadow-[1px_1px_0px_0px_rgba(0,0,0,1)]">
-                                        <img src="{{ $schedule->lecturer->getAvatarUrl() }}" alt="{{ $schedule->lecturer->user->name }}" class="h-full w-full object-cover">
+                                        <img src="{{ $schedule->lecturer->getAvatarUrl() }}" alt="{{ $schedule->lecturer->user->name }}" width="40" height="40" loading="lazy" class="h-full w-full object-cover">
                                     </div>
                                     <div>
                                         <span class="text-xxs text-slate-400 font-bold uppercase tracking-wider block">Dosen Pengampu</span>

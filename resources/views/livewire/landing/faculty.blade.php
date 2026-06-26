@@ -32,7 +32,7 @@
                         </div>
 
                         <!-- Department List -->
-                        <div class="space-y-3 pt-4 border-t-2 border-slate-900">
+                        <div class="space-y-3 pt-2">
                             <h3 class="text-xs font-bold text-slate-400 uppercase tracking-wider">Program Studi / Jurusan:</h3>
                             <div class="space-y-2">
                                 @forelse($faculty->departments as $department)

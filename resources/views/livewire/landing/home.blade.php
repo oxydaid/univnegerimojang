@@ -63,29 +63,25 @@
                                     <span class="h-2.5 w-2.5 bg-primary border border-slate-900"></span>
                                     <h3 class="font-extrabold text-slate-900 text-xs uppercase tracking-wide">Kalender Akademik Terdekat</h3>
                                 </div>
-                                <span class="text-[10px] text-primary font-extrabold tracking-wide uppercase hover:underline cursor-pointer">Lihat Semua</span>
+                                <a href="{{ route('academic.calendar') }}" wire:navigate class="text-[10px] text-primary font-extrabold tracking-wide uppercase hover:underline cursor-pointer">Lihat Semua</a>
                             </div>
                             <div class="space-y-3">
-                                <div class="flex items-center gap-3">
-                                    <div class="bg-primary/15 text-primary border-2 border-slate-900 p-1.5 flex flex-col items-center justify-center h-10 w-10 flex-shrink-0 font-bold text-xs shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]">
-                                        <span class="leading-none text-sm font-pixel font-bold">28</span>
-                                        <span class="text-[8px] uppercase tracking-wider">Jun</span>
+                                @forelse($upcomingActivities as $activity)
+                                    <div class="flex items-center gap-3">
+                                        <div class="{{ $loop->first ? 'bg-primary/15 text-primary' : 'bg-secondary/15 text-secondary' }} border-2 border-slate-900 p-1.5 flex flex-col items-center justify-center h-10 w-10 flex-shrink-0 font-bold text-xs shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]">
+                                            <span class="leading-none text-sm font-pixel font-bold">{{ $activity->start_date->format('d') }}</span>
+                                            <span class="text-[8px] uppercase tracking-wider">{{ $activity->start_date->format('M') }}</span>
+                                        </div>
+                                        <div>
+                                            <h4 class="font-extrabold text-slate-800 text-xs hover:text-primary cursor-pointer transition-colors duration-150 uppercase">{{ $activity->title }}</h4>
+                                            <p class="text-[10px] text-slate-500 leading-snug">{{ $activity->description }}</p>
+                                        </div>
                                     </div>
-                                    <div>
-                                        <h4 class="font-extrabold text-slate-800 text-xs hover:text-primary cursor-pointer transition-colors duration-150 uppercase">Praktikum Mengalahkan Ender Dragon</h4>
-                                        <p class="text-[10px] text-slate-500">09:00 WIB di Dimensi The End (Lab Multidimensi)</p>
+                                @empty
+                                    <div class="text-center py-4 border-2 border-dashed border-slate-300">
+                                        <p class="text-xs text-slate-500 font-bold uppercase">Tidak ada agenda terdekat</p>
                                     </div>
-                                </div>
-                                <div class="flex items-center gap-3">
-                                    <div class="bg-secondary/15 text-secondary border-2 border-slate-900 p-1.5 flex flex-col items-center justify-center h-10 w-10 flex-shrink-0 font-bold text-xs shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]">
-                                        <span class="leading-none text-sm font-pixel font-bold">05</span>
-                                        <span class="text-[8px] uppercase tracking-wider">Jul</span>
-                                    </div>
-                                    <div>
-                                        <h4 class="font-extrabold text-slate-800 text-xs hover:text-primary cursor-pointer transition-colors duration-150 uppercase">Kuliah Umum: Optimalisasi Redstone Clocks</h4>
-                                        <p class="text-[10px] text-slate-500">Gedung Lab Redstone Mumbo Lt. 1</p>
-                                    </div>
-                                </div>
+                                @endforelse
                             </div>
                         </div>
                     </div>

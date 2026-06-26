@@ -26,7 +26,7 @@
                     <div class="space-y-6">
                         <!-- Photo placeholder -->
                         <div class="mx-auto h-28 w-28 rounded-none border-4 border-slate-900 shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] bg-slate-100 relative overflow-hidden group-hover:scale-105 transition-transform duration-300">
-                            <img src="{{ $rector->getAvatarUrl() }}" alt="{{ $rector->user->name }}" class="h-full w-full object-cover">
+                            <img src="{{ $rector->getAvatarUrl() }}" alt="{{ $rector->user->name }}" width="112" height="112" loading="lazy" class="h-full w-full object-cover">
                         </div>
                         
                         <div class="space-y-2">
@@ -55,7 +55,7 @@
                     <div class="bg-white border-4 border-slate-900 p-6 text-center hover:shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] hover:-translate-y-0.5 transition-all duration-200 relative group shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] rounded-none">
                         <div class="space-y-4 font-sans">
                             <div class="mx-auto h-24 w-24 rounded-none border-4 border-slate-900 shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] bg-slate-100 relative overflow-hidden group-hover:scale-105 transition-transform duration-300">
-                                <img src="{{ $vr->getAvatarUrl() }}" alt="{{ $vr->user->name }}" class="h-full w-full object-cover">
+                                <img src="{{ $vr->getAvatarUrl() }}" alt="{{ $vr->user->name }}" width="96" height="96" loading="lazy" class="h-full w-full object-cover">
                             </div>
                             
                             <div class="space-y-2">
@@ -87,7 +87,7 @@
                         <div class="bg-white border-4 border-slate-900 p-6 text-center hover:shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] hover:-translate-y-0.5 transition-all duration-200 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] rounded-none group">
                             <div class="space-y-4 font-sans">
                                 <div class="mx-auto h-20 w-20 rounded-none border-4 border-slate-900 shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] bg-slate-100 relative overflow-hidden group-hover:scale-105 transition-transform duration-300">
-                                    <img src="{{ $oth->getAvatarUrl() }}" alt="{{ $oth->user->name }}" class="h-full w-full object-cover">
+                                    <img src="{{ $oth->getAvatarUrl() }}" alt="{{ $oth->user->name }}" width="80" height="80" loading="lazy" class="h-full w-full object-cover">
                                 </div>
                                 
                                 <div class="space-y-2">

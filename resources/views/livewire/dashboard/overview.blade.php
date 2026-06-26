@@ -8,7 +8,7 @@
                 <div class="bg-white border-4 border-slate-900 p-6 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] text-center relative overflow-hidden">
                     <div class="absolute top-0 left-0 w-full h-2 bg-primary"></div>
                     @if($user && $user->student)
-                        <img src="{{ $user->student->getAvatarUrl() }}" alt="Avatar" class="h-20 w-20 mx-auto border-4 border-slate-900 bg-primary-pastel shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] object-contain mb-4">
+                        <img src="{{ $user->student->getAvatarUrl() }}" alt="Avatar" width="80" height="80" loading="lazy" class="h-20 w-20 mx-auto border-4 border-slate-900 bg-primary-pastel shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] object-contain mb-4">
                     @else
                         <div class="h-20 w-20 mx-auto border-4 border-slate-900 bg-secondary-pastel shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] flex items-center justify-center text-slate-800 font-pixel text-4xl mb-4 uppercase">
                             {{ substr($user->name ?? 'U', 0, 1) }}

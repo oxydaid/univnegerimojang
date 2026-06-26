@@ -132,7 +132,7 @@
                                 <div class="flex items-center gap-3">
                                     <!-- Avatar Image -->
                                     <div class="h-10 w-10 border-2 border-slate-900 shadow-[1px_1px_0px_0px_rgba(0,0,0,1)] bg-slate-100 flex-shrink-0 overflow-hidden">
-                                        <img src="{{ $lecturer->getAvatarUrl() }}" alt="{{ $lecturer->user->name }}" class="h-full w-full object-cover">
+                                        <img src="{{ $lecturer->getAvatarUrl() }}" alt="{{ $lecturer->user->name }}" width="40" height="40" loading="lazy" class="h-full w-full object-cover">
                                     </div>
                                     <div>
                                         <h4 class="text-sm font-bold text-slate-900 leading-tight">{{ $lecturer->user->name }}</h4>
