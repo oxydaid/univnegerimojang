@@ -1,4 +1,4 @@
-<div class="mt-2 text-center" x-data="{
+<div wire:ignore class="mt-2 text-center" x-data="{
     viewer: null,
     init() {
         this.loadViewer();
@@ -28,6 +28,6 @@
 }">
     @vite(['resources/js/app.js'])
     <div class="mx-auto border-2 border-slate-900 bg-slate-100 shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] w-[160px] h-[200px] overflow-hidden flex items-center justify-center">
-        <canvas x-ref="skinCanvas" width="160" height="200" class="w-[160px] h-[200px]"></canvas>
+        <canvas x-ref="skinCanvas" width="160" height="200" class="w-[160px] h-[200px] block"></canvas>
     </div>
 </div>
