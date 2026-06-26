@@ -26,7 +26,7 @@
                             <!-- Image container with NameMC head rendering fallback -->
                             <div class="relative w-24 h-24 mx-auto rounded-none border-4 border-slate-900 shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] overflow-hidden group-hover:scale-105 transition-transform duration-300">
                                 <!-- Default fallback head image or NameMC Head render -->
-                                <img src="https://api.mineatar.io/face/{{ strtolower($alumnus['name']) }}?scale=8" 
+                                <img src="https://mc-heads.net/avatar/{{ strtolower(str_replace(' ', '', $alumnus['name'])) }}" 
                                      onerror="this.src='{{ $alumnus['skin_preview'] }}'"
                                      alt="{{ $alumnus['name'] }}" 
                                      class="h-full w-full object-cover">

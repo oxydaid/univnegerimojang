@@ -72,7 +72,7 @@ class EditProfile extends BaseEditProfile
             $components[] = Placeholder::make('skin_3d_preview')
                 ->label('Render Skin 3D')
                 ->content(function () use ($profile) {
-                    $url = $profile->skin ? asset('storage/'.$profile->skin) : '';
+                    $url = $profile->skin ? asset($profile->skin) : '';
 
                     return view('filament.components.skin-3d-preview', ['skinUrl' => $url]);
                 });

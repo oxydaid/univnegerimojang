@@ -9,7 +9,7 @@
             return;
         }
         const canvas = this.$refs.skinCanvas;
-        const skinUrl = '{{ $skinUrl }}' || 'https://api.mineatar.io/skin/Steve';
+        const skinUrl = '{{ $skinUrl }}' || 'https://crafatar.com/skins/default';
         
         try {
             this.viewer = new window.skinview3d.SkinViewer({

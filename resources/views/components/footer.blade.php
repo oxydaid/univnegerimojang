@@ -5,7 +5,7 @@
             <div class="col-span-2 space-y-4 sm:space-y-6">
                 <div class="flex items-center gap-3">
                     @if($settings->logo)
-                        <img class="h-10 w-auto object-contain border-2 border-slate-900 p-1" src="{{ asset('storage/' . $settings->logo) }}" alt="{{ $settings->app_name }}" width="160" height="40" loading="lazy">
+                        <img class="h-10 w-auto object-contain border-2 border-slate-900 p-1" src="{{ asset($settings->logo) }}" alt="{{ $settings->app_name }}" width="160" height="40" loading="lazy">
                     @else
                         <div class="h-10 w-10 rounded-none border-2 border-slate-900 bg-secondary flex items-center justify-center text-white font-black text-lg shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]">
                             U

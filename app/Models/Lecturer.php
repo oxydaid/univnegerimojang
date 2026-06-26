@@ -85,35 +85,14 @@ class Lecturer extends Model
     }
 
     /**
-     * Get the avatar URL (either uploaded photo or Mineatar face based on name).
+     * Get the avatar URL.
      */
     public function getAvatarUrl(): string
     {
-        $name = strtolower($this->user->name ?? '');
-        $mcUsername = 'Steve';
-
-        if (str_contains($name, 'steve')) {
-            $mcUsername = 'Steve';
-        } elseif (str_contains($name, 'alex')) {
-            $mcUsername = 'Alex';
-        } elseif (str_contains($name, 'mumbo') || str_contains($name, 'jumbo')) {
-            $mcUsername = 'MumboJumbo';
-        } elseif (str_contains($name, 'roslin') || str_contains($name, 'gertrude')) {
-            $mcUsername = 'Alex';
-        } elseif (str_contains($name, 'piglin')) {
-            $mcUsername = 'Piglin';
-        } elseif (str_contains($name, 'enderman')) {
-            $mcUsername = 'Enderman';
-        } elseif (str_contains($name, 'villager')) {
-            $mcUsername = 'Villager';
-        } elseif (str_contains($name, 'dream')) {
-            $mcUsername = 'Dream';
-        } elseif (str_contains($name, 'grian')) {
-            $mcUsername = 'Grian';
-        } elseif (str_contains($name, 'george')) {
-            $mcUsername = 'GeorgeNotFound';
+        if ($this->photo) {
+            return asset($this->photo);
         }
 
-        return "https://api.mineatar.io/face/{$mcUsername}?scale=8";
+        return asset('images/steve.webp');
     }
 }

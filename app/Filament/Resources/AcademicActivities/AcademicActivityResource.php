@@ -18,7 +18,11 @@ class AcademicActivityResource extends Resource
 {
     protected static ?string $model = AcademicActivity::class;
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedCalendar;
+
+    protected static string|\UnitEnum|null $navigationGroup = 'Academic Data';
+
+    protected static ?int $navigationSort = 7;
 
     protected static ?string $recordTitleAttribute = 'title';
 
