@@ -77,6 +77,11 @@ class ManageAppSetting extends Page
                                     Toggle::make('graduation_list_published')
                                         ->label('Publikasikan List Kelulusan')
                                         ->default(true),
+                                    TextInput::make('max_test_questions')
+                                        ->label('Maksimal Soal Ujian')
+                                        ->numeric()
+                                        ->default(10)
+                                        ->required(),
                                     Textarea::make('app_description')
                                         ->default(null)
                                         ->columnSpanFull(),

@@ -6,7 +6,7 @@
             <div class="absolute right-4 top-4 text-slate-800 font-pixel text-7xl select-none opacity-20"><i class="fa-solid fa-file-signature"></i></div>
             <div class="relative z-10 space-y-2">
                 <span class="inline-flex items-center px-2.5 py-0.5 bg-red-500 text-slate-950 font-bold text-xxs uppercase tracking-wider">
-                    Ujian Tertulis Online
+                    Ujian Tertulis Online (CBT)
                 </span>
                 <h1 class="text-2xl sm:text-3xl font-extrabold tracking-tight font-pixel uppercase">
                     Ruang Ujian Teoretis Redstone & Survival
@@ -18,13 +18,44 @@
         </div>
 
         <!-- Rules Alert Box -->
-        <div class="bg-amber-50 border-4 border-amber-400 p-4 flex gap-3 text-amber-800 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
+        <div class="bg-amber-50 border-4 border-slate-900 p-4 flex gap-3 text-amber-800 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
             <div class="text-2xl flex-shrink-0 mt-0.5"><i class="fa-solid fa-triangle-exclamation"></i></div>
             <div>
                 <h4 class="font-bold text-sm font-pixel uppercase tracking-wide">Peringatan Ujian</h4>
                 <p class="text-xs text-amber-700 leading-relaxed mt-0.5">
-                    Hati-hati! Sistem proteksi kami memantau aktivitas Anda. Membuka tab lain terlalu lama atau menggunakan Cheat/Creative Mode dapat mengakibatkan kegagalan instan. Jawablah dengan jujur sesuai pengetahuan survival vanilla Anda!
+                    Hati-hati! Sistem proteksi kami memantau aktivitas Anda. Jawablah soal dengan jujur sesuai pengetahuan survival vanilla Anda. Ujian ini dibatasi oleh timer mundur, dan ketika waktu habis, semua jawaban Anda akan langsung disimpan secara otomatis!
                 </p>
+            </div>
+        </div>
+
+        <!-- Sticky Floating Countdown Timer (Alpine.js) -->
+        <div class="fixed bottom-6 right-6 z-50" x-data="{
+            timeLeft: {{ max(0, $endTimestamp - time()) }},
+            timerText: '',
+            init() {
+                this.updateText();
+                let timer = setInterval(() => {
+                    if (this.timeLeft <= 0) {
+                        clearInterval(timer);
+                        $wire.submitTimeout();
+                        return;
+                    }
+                    this.timeLeft--;
+                    this.updateText();
+                }, 1000);
+            },
+            updateText() {
+                let minutes = Math.floor(this.timeLeft / 60);
+                let seconds = this.timeLeft % 60;
+                this.timerText = String(minutes).padStart(2, '0') + ':' + String(seconds).padStart(2, '0');
+            }
+        }">
+            <div class="flex flex-col items-center bg-yellow-300 border-4 border-slate-900 p-4 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] min-w-[120px]">
+                <span class="text-[9px] font-extrabold text-slate-800 uppercase tracking-wider mb-1">Sisa Waktu</span>
+                <div class="flex items-center gap-2">
+                    <i class="fa-solid fa-clock text-red-600 animate-pulse text-base"></i>
+                    <span class="font-pixel text-2xl font-bold text-slate-900" x-text="timerText">00:00</span>
+                </div>
             </div>
         </div>
 
@@ -32,7 +63,7 @@
         <div class="space-y-6">
             <form wire:submit.prevent="submit" class="space-y-6">
                 @php $index = 1; @endphp
-                @foreach($questions as $q)
+                @foreach($sortedQuestions as $q)
                     <div class="bg-white border-4 border-slate-900 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] p-6 space-y-4">
                         <!-- Question Header -->
                         <div class="flex items-start gap-3">
@@ -44,35 +75,19 @@
                             </h3>
                         </div>
 
-                        <!-- Options List -->
+                        <!-- Options List (Randomized) -->
                         <div class="grid grid-cols-1 gap-3 pl-11">
-                            <!-- Option A -->
-                            <label class="flex items-center gap-3 p-3 border-2 border-slate-200 hover:border-slate-800 cursor-pointer transition-colors duration-150 {{ $answers[$q->id] === 'A' ? 'border-primary bg-primary/5 text-primary' : 'bg-slate-50' }}">
-                                <input type="radio" wire:model="answers.{{ $q->id }}" value="A" class="h-4 w-4 text-primary focus:ring-primary border-slate-300">
-                                <span class="text-xs font-bold font-mono">A.</span>
-                                <span class="text-xs sm:text-sm font-semibold">{{ $q->option_a }}</span>
-                            </label>
-
-                            <!-- Option B -->
-                            <label class="flex items-center gap-3 p-3 border-2 border-slate-200 hover:border-slate-800 cursor-pointer transition-colors duration-150 {{ $answers[$q->id] === 'B' ? 'border-primary bg-primary/5 text-primary' : 'bg-slate-50' }}">
-                                <input type="radio" wire:model="answers.{{ $q->id }}" value="B" class="h-4 w-4 text-primary focus:ring-primary border-slate-300">
-                                <span class="text-xs font-bold font-mono">B.</span>
-                                <span class="text-xs sm:text-sm font-semibold">{{ $q->option_b }}</span>
-                            </label>
-
-                            <!-- Option C -->
-                            <label class="flex items-center gap-3 p-3 border-2 border-slate-200 hover:border-slate-800 cursor-pointer transition-colors duration-150 {{ $answers[$q->id] === 'C' ? 'border-primary bg-primary/5 text-primary' : 'bg-slate-50' }}">
-                                <input type="radio" wire:model="answers.{{ $q->id }}" value="C" class="h-4 w-4 text-primary focus:ring-primary border-slate-300">
-                                <span class="text-xs font-bold font-mono">C.</span>
-                                <span class="text-xs sm:text-sm font-semibold">{{ $q->option_c }}</span>
-                            </label>
-
-                            <!-- Option D -->
-                            <label class="flex items-center gap-3 p-3 border-2 border-slate-200 hover:border-slate-800 cursor-pointer transition-colors duration-150 {{ $answers[$q->id] === 'D' ? 'border-primary bg-primary/5 text-primary' : 'bg-slate-50' }}">
-                                <input type="radio" wire:model="answers.{{ $q->id }}" value="D" class="h-4 w-4 text-primary focus:ring-primary border-slate-300">
-                                <span class="text-xs font-bold font-mono">D.</span>
-                                <span class="text-xs sm:text-sm font-semibold">{{ $q->option_d }}</span>
-                            </label>
+                            @foreach($shuffledOptions[$q->id] as $opt)
+                                @php
+                                    $optionKey = $opt['key'];
+                                    $optionText = $opt['text'];
+                                @endphp
+                                <label class="flex items-center gap-3 p-3 border-2 border-slate-200 hover:border-slate-800 cursor-pointer transition-colors duration-150 {{ ($answers[$q->id] ?? '') === $optionKey ? 'border-primary bg-primary/5 text-primary' : 'bg-slate-50' }}">
+                                    <input type="radio" wire:model="answers.{{ $q->id }}" value="{{ $optionKey }}" class="h-4 w-4 text-primary focus:ring-primary border-slate-300">
+                                    <span class="text-xs font-bold font-mono">{{ $optionKey }}.</span>
+                                    <span class="text-xs sm:text-sm font-semibold text-slate-700">{{ $optionText }}</span>
+                                </label>
+                            @endforeach
                         </div>
                         
                         @error('answers.' . $q->id)

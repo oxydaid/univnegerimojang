@@ -55,6 +55,7 @@ class AppSettingSeeder extends Seeder
                 'tiktok_url' => 'https://tiktok.com/@unemo.official',
                 'whatsapp_number' => '6281234567890',
                 'discord_url' => 'https://discord.gg/unemo-overworld',
+                'max_test_questions' => 10,
             ]
         );
 
