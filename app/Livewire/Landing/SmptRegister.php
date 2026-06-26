@@ -3,6 +3,7 @@
 namespace App\Livewire\Landing;
 
 use App\Mail\RegistrationNotificationMail;
+use App\Models\AcademicYear;
 use App\Models\Admission;
 use App\Models\AppSetting;
 use App\Models\Department;
@@ -52,6 +53,13 @@ class SmptRegister extends Component
 
     public function submit()
     {
+        $settings = AppSetting::first();
+        if ($settings && ! $settings->spmb_open) {
+            session()->flash('error', 'Mohon maaf, pendaftaran mahasiswa baru (SPMB) saat ini sedang ditutup.');
+
+            return;
+        }
+
         // General validation rules
         $rules = [
             'name' => 'required|string|max:255',
@@ -63,12 +71,12 @@ class SmptRegister extends Component
         ];
 
         // Conditional validations for uploads (skin, rapot/stats, certificate are required for all)
-        $rules['skin'] = 'required|image|max:1024'; // Max 1MB
-        $rules['minecraft_stats'] = 'required|image|max:2048'; // Max 2MB (rapot)
-        $rules['certificate'] = 'required|image|max:2048'; // Max 2MB (ijazah)
+        $rules['skin'] = 'required|image|min:800|max:2048'; // Min 800KB, Max 2MB
+        $rules['minecraft_stats'] = 'required|image|min:800|max:2048'; // Min 800KB, Max 2MB
+        $rules['certificate'] = 'required|image|min:800|max:2048'; // Min 800KB, Max 2MB
 
         if ($this->path === 'prestasi') {
-            $rules['achievement_proof'] = 'required|image|max:2048';
+            $rules['achievement_proof'] = 'required|image|min:800|max:2048';
         }
 
         if ($this->path === 'beasiswa') {
@@ -106,6 +114,9 @@ class SmptRegister extends Component
             $regNumber = 'REG-'.date('Y').'-'.str_pad(rand(1, 9999), 4, '0', STR_PAD_LEFT);
         }
 
+        // Get active academic year
+        $activeYear = AcademicYear::where('is_active', true)->first();
+
         // Create admission record
         $admission = Admission::create([
             'registration_number' => $regNumber,
@@ -117,6 +128,7 @@ class SmptRegister extends Component
             'path' => $this->path,
             'documents' => $documents,
             'status' => 'pending',
+            'academic_year_id' => $activeYear?->id,
         ]);
 
         try {

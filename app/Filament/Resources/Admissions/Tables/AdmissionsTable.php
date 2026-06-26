@@ -47,7 +47,7 @@ class AdmissionsTable
                         'prestasi' => '🏆 Prestasi',
                         'nilai' => '📊 Nilai Rapot',
                         'test' => '📝 Ujian Online',
-                        'beasiswa' => '💎 Beasiswa Ordal',
+                        'beasiswa' => '💎 Beasiswa Kemitraan',
                         default => $state,
                     })
                     ->badge()
@@ -99,7 +99,7 @@ class AdmissionsTable
                         'prestasi' => '🏆 Jalur Prestasi',
                         'nilai' => '📊 Jalur Nilai Rapot',
                         'test' => '📝 Jalur Ujian Online',
-                        'beasiswa' => '💎 Jalur Beasiswa Ordal',
+                        'beasiswa' => '💎 Jalur Beasiswa Kemitraan',
                     ]),
             ])
             ->recordActions([

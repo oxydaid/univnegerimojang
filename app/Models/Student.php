@@ -64,10 +64,6 @@ class Student extends Model
      */
     public function getAvatarUrl(): string
     {
-        if ($this->photo) {
-            return asset('storage/'.$this->photo);
-        }
-
         $name = strtolower($this->user->name ?? '');
         $mcUsername = 'Steve';
 

@@ -32,9 +32,9 @@ test('smpt registration and quiz flow works', function () {
 
     $dept = Department::first();
 
-    $skin = UploadedFile::fake()->image('skin.png');
-    $stats = UploadedFile::fake()->image('stats.jpg');
-    $cert = UploadedFile::fake()->image('cert.png');
+    $skin = UploadedFile::fake()->create('skin.png', 900);
+    $stats = UploadedFile::fake()->create('stats.jpg', 900);
+    $cert = UploadedFile::fake()->create('cert.png', 900);
 
     // Register with 'test' path
     Livewire::test(SmptRegister::class)

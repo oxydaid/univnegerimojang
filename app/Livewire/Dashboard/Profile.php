@@ -7,9 +7,12 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules\Password;
 use Livewire\Component;
+use Livewire\WithFileUploads;
 
 class Profile extends Component
 {
+    use WithFileUploads;
+
     /**
      * The phone number of the profile.
      */
@@ -29,6 +32,16 @@ class Profile extends Component
      * The TikTok username (if student).
      */
     public string $tiktok = '';
+
+    /**
+     * Uploaded photo file.
+     */
+    public $photo;
+
+    /**
+     * Uploaded skin file.
+     */
+    public $skin;
 
     /**
      * The current password for validation.
@@ -77,28 +90,68 @@ class Profile extends Component
             return;
         }
 
-        $this->validate([
+        $rules = [
             'phone' => ['nullable', 'string', 'max:20'],
             'address' => ['nullable', 'string', 'max:500'],
             'tiktok' => ['nullable', 'string', 'max:50'],
-        ]);
+        ];
 
+        if ($this->photo) {
+            $rules['photo'] = ['image', 'min:800', 'max:2048'];
+        }
+
+        if ($this->skin) {
+            $rules['skin'] = ['image', 'min:800', 'max:2048'];
+        }
+
+        $this->validate($rules);
+
+        $profile = null;
         if ($user->student) {
-            $user->student->update([
-                'phone' => $this->phone,
-                'address' => $this->address,
-                'tiktok' => $this->tiktok,
-            ]);
+            $profile = $user->student;
         } elseif ($user->lecturer) {
-            $user->lecturer->update([
-                'phone' => $this->phone,
-                'address' => $this->address,
-            ]);
+            $profile = $user->lecturer;
         } elseif ($user->staff) {
-            $user->staff->update([
+            $profile = $user->staff;
+        }
+
+        if ($profile) {
+            $updateData = [
                 'phone' => $this->phone,
                 'address' => $this->address,
-            ]);
+            ];
+
+            if ($user->student) {
+                $updateData['tiktok'] = $this->tiktok;
+            }
+
+            if ($this->photo) {
+                if (method_exists($profile, 'deleteOldPhoto')) {
+                    $profile->deleteOldPhoto();
+                }
+                if (method_exists($profile, 'formatPhotoName')) {
+                    $fileName = $profile->formatPhotoName($this->photo);
+                    $this->photo->storeAs('', $fileName, 'public');
+                    $updateData['photo'] = $fileName;
+                } else {
+                    $updateData['photo'] = $this->photo->store('profiles', 'public');
+                }
+            }
+
+            if ($this->skin) {
+                if (method_exists($profile, 'deleteOldSkin')) {
+                    $profile->deleteOldSkin();
+                }
+                if (method_exists($profile, 'formatSkinName')) {
+                    $fileName = $profile->formatSkinName($this->skin);
+                    $this->skin->storeAs('', $fileName, 'public');
+                    $updateData['skin'] = $fileName;
+                } else {
+                    $updateData['skin'] = $this->skin->store('skins', 'public');
+                }
+            }
+
+            $profile->update($updateData);
         }
 
         session()->flash('profile_success', 'Profil berhasil diperbarui!');

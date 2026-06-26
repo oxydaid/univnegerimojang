@@ -24,11 +24,7 @@
         <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=VT323&display=swap" rel="stylesheet">
 
         <!-- Favicon -->
-        @if($settings->favicon)
-            <link rel="icon" type="image/x-icon" href="{{ asset('storage/' . $settings->favicon) }}">
-        @else
-            <link rel="icon" type="image/x-icon" href="https://laravel.com/img/logomark.min.svg">
-        @endif
+        <link rel="icon" type="image/x-icon" href="https://laravel.com/img/logomark.min.svg">
 
         @vite(['resources/css/app.css', 'resources/js/app.js'])
 

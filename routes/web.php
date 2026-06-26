@@ -5,9 +5,11 @@ use App\Livewire\Academic\Department;
 use App\Livewire\Dashboard\Overview;
 use App\Livewire\Dashboard\Profile;
 use App\Livewire\Landing\About;
+use App\Livewire\Landing\AcademicCalendar;
 use App\Livewire\Landing\Alumni;
 use App\Livewire\Landing\Contact;
 use App\Livewire\Landing\Faculty;
+use App\Livewire\Landing\GraduationList;
 use App\Livewire\Landing\Home;
 use App\Livewire\Landing\Organization;
 use App\Livewire\Landing\SmptCheck;
@@ -31,6 +33,8 @@ Route::get('/smpt', SmptRegister::class)->name('smpt.register');
 Route::get('/smpt/test/{registration_number}', SmptTest::class)->name('smpt.test');
 Route::get('/smpt/cek-kelulusan', SmptCheck::class)->name('smpt.check');
 Route::get('/smpt/panduan', SmptGuide::class)->name('smpt.guide');
+Route::get('/smpt/list-kelulusan', GraduationList::class)->name('smpt.graduation-list');
+Route::get('/akademik/kalender', AcademicCalendar::class)->name('academic.calendar');
 
 // Authentication Redirects
 Route::get('/login', function () {

@@ -27,10 +27,6 @@
                         <!-- Photo placeholder -->
                         <div class="mx-auto h-28 w-28 rounded-none border-4 border-slate-900 shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] bg-slate-100 relative overflow-hidden group-hover:scale-105 transition-transform duration-300">
                             <img src="{{ $rector->getAvatarUrl() }}" alt="{{ $rector->user->name }}" class="h-full w-full object-cover">
-
-                            @if($rector->skin)
-                                <img src="{{ asset('storage/' . $rector->skin) }}" class="h-8 w-8 absolute bottom-0 right-0 rounded-none border border-slate-900 shadow-[1px_1px_0px_0px_rgba(0,0,0,1)] bg-slate-100" title="Minecraft Skin">
-                            @endif
                         </div>
                         
                         <div class="space-y-2">
@@ -60,10 +56,6 @@
                         <div class="space-y-4 font-sans">
                             <div class="mx-auto h-24 w-24 rounded-none border-4 border-slate-900 shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] bg-slate-100 relative overflow-hidden group-hover:scale-105 transition-transform duration-300">
                                 <img src="{{ $vr->getAvatarUrl() }}" alt="{{ $vr->user->name }}" class="h-full w-full object-cover">
-
-                                @if($vr->skin)
-                                    <img src="{{ asset('storage/' . $vr->skin) }}" class="h-6 w-6 absolute bottom-0 right-0 rounded-none border border-slate-900 shadow-[1px_1px_0px_0px_rgba(0,0,0,1)] bg-slate-100" title="Minecraft Skin">
-                                @endif
                             </div>
                             
                             <div class="space-y-2">
@@ -96,10 +88,6 @@
                             <div class="space-y-4 font-sans">
                                 <div class="mx-auto h-20 w-20 rounded-none border-4 border-slate-900 shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] bg-slate-100 relative overflow-hidden group-hover:scale-105 transition-transform duration-300">
                                     <img src="{{ $oth->getAvatarUrl() }}" alt="{{ $oth->user->name }}" class="h-full w-full object-cover">
-
-                                    @if($oth->skin)
-                                        <img src="{{ asset('storage/' . $oth->skin) }}" class="h-5 w-5 absolute bottom-0 right-0 rounded-none border border-slate-900 shadow-[1px_1px_0px_0px_rgba(0,0,0,1)] bg-slate-100" title="Minecraft Skin">
-                                    @endif
                                 </div>
                                 
                                 <div class="space-y-2">

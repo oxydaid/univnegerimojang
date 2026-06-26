@@ -14,6 +14,8 @@ class AppSetting extends Model
     {
         return [
             'is_development' => 'boolean',
+            'spmb_open' => 'boolean',
+            'graduation_list_published' => 'boolean',
         ];
     }
 

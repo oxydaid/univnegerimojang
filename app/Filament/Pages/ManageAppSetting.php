@@ -9,6 +9,7 @@ use Filament\Forms\Components\ColorPicker;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\Toggle;
 use Filament\Notifications\Notification;
 use Filament\Pages\Page;
 use Filament\Schemas\Components\Actions;
@@ -70,6 +71,12 @@ class ManageAppSetting extends Page
                                     TextInput::make('ga4_measurement_id')
                                         ->label('Google Analytics GA4 ID')
                                         ->default(null),
+                                    Toggle::make('spmb_open')
+                                        ->label('Buka Pendaftaran SPMB')
+                                        ->default(true),
+                                    Toggle::make('graduation_list_published')
+                                        ->label('Publikasikan List Kelulusan')
+                                        ->default(true),
                                     Textarea::make('app_description')
                                         ->default(null)
                                         ->columnSpanFull(),

@@ -69,7 +69,7 @@
                         <div class="space-y-1">
                             <h4 class="font-extrabold text-sm text-slate-800">Memilih Program Studi & Jalur Masuk</h4>
                             <p class="text-xs text-slate-500 leading-relaxed">
-                                Kunjungi <a href="{{ route('smpt.register') }}" wire:navigate class="text-primary hover:underline font-bold">Formulir Pendaftaran</a>, tentukan program studi tujuan, lalu pilih salah satu jalur seleksi yang tersedia: **Nilai Rapot**, **Prestasi**, **Ujian Online (Test)**, atau **Beasiswa Ordal (Orang Dalam)**.
+                                Jalur pendaftaran online: **Nilai Rapot**, **Prestasi**, **Ujian Online (Test)**, atau **Beasiswa Kemitraan**.
                             </p>
                         </div>
                     </div>

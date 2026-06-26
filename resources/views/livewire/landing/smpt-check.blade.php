@@ -11,6 +11,21 @@
             </p>
         </div>
 
+        @if(session()->has('success_registration'))
+            <div class="bg-emerald-100 border-4 border-slate-900 p-6 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] space-y-2">
+                <div class="flex items-center gap-2 text-emerald-800 font-pixel font-bold text-lg">
+                    <i class="fa-solid fa-circle-check text-xl text-emerald-600"></i>
+                    <span>Pendaftaran Berhasil!</span>
+                </div>
+                <p class="text-xs text-slate-700 leading-relaxed">
+                    Terima kasih telah mendaftar di Universitas Negeri Mojang. Simpan kode pendaftaran berikut untuk memantau status kelulusan Anda:
+                </p>
+                <div class="p-3 bg-white border-2 border-slate-900 font-mono font-bold text-center text-xl tracking-widest text-slate-900 shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] uppercase">
+                    {{ session('success_registration') }}
+                </div>
+            </div>
+        @endif
+
         @if(!$searched)
             <!-- Search Form Screen -->
             <div class="bg-white border-4 border-slate-900 shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] p-8 space-y-6">

@@ -54,7 +54,7 @@ class AdmissionForm
                                 'prestasi' => 'Jalur Prestasi',
                                 'nilai' => 'Jalur Nilai (SS Rapot/Statistik)',
                                 'test' => 'Jalur Ujian Online (Test)',
-                                'beasiswa' => 'Jalur Beasiswa Ordal (Orang Dalam)',
+                                'beasiswa' => 'Jalur Beasiswa Kemitraan',
                             ])
                             ->required(),
                     ])
@@ -88,9 +88,9 @@ class AdmissionForm
                     ->description('Berkas Minecraft yang diunggah oleh pendaftar.')
                     ->schema([
                         TextInput::make('documents.ordal_code')
-                            ->label('Kode Referensi Orang Dalam (Ordal)')
+                            ->label('Kode Referensi Kemitraan')
                             ->disabled()
-                            ->placeholder('Tidak menggunakan kode ordal'),
+                            ->placeholder('Tidak menggunakan kode kemitraan'),
 
                         Placeholder::make('doc_skin')
                             ->label('Minecraft Skin')

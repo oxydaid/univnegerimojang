@@ -61,7 +61,10 @@
                         <p class="text-xs text-slate-500">Informasi utama identitas civitas akademika UNEMO.</p>
                     </div>
 
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    @php
+                        $profile = $user->student ?? $user->lecturer ?? $user->staff;
+                    @endphp
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                         <!-- Left Details List -->
                         <div class="space-y-4">
                             <div>
@@ -80,7 +83,7 @@
                             </div>
                         </div>
 
-                        <!-- Right Role-Specific Details -->
+                        <!-- Middle Role-Specific Details -->
                         <div class="space-y-4 md:border-l-2 md:border-slate-100 md:pl-6">
                             @if($user && $user->student)
                                 <div>
@@ -112,6 +115,45 @@
                                     <span class="text-xs font-bold text-slate-800 uppercase">{{ $user->staff->position ?? '-' }}</span>
                                 </div>
                             @endif
+                        </div>
+
+                        <!-- Right: 3D Skin Preview -->
+                        <div class="flex flex-col items-center justify-center p-4 border-2 border-slate-900 bg-slate-50 shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]"
+                             x-data="{
+                                 viewer: null,
+                                 skinUrl: '{{ ($profile && $profile->skin) ? asset('storage/' . $profile->skin) : 'https://api.mineatar.io/skin/Steve' }}',
+                                 init() {
+                                     this.loadViewer();
+                                 },
+                                 loadViewer() {
+                                     if (!window.skinview3d) {
+                                         setTimeout(() => this.loadViewer(), 100);
+                                         return;
+                                     }
+                                     try {
+                                         this.viewer = new window.skinview3d.SkinViewer({
+                                             canvas: this.$refs.skinCanvas,
+                                             width: 140,
+                                             height: 180,
+                                             skin: this.skinUrl
+                                         });
+                                         this.viewer.zoom = 0.85;
+                                         this.viewer.autoRotate = true;
+                                         this.viewer.autoRotateSpeed = 1.0;
+                                     } catch (e) {
+                                         console.error(e);
+                                     }
+                                 }
+                             }"
+                             @update-skin-preview.window="
+                                 skinUrl = $event.detail.url;
+                                 if (viewer) {
+                                     viewer.loadSkin(skinUrl);
+                                 }
+                             ">
+                             @vite(['resources/js/app.js'])
+                             <span class="block text-[10px] font-extrabold text-slate-400 uppercase tracking-wider mb-2">Render Skin 3D</span>
+                             <canvas x-ref="skinCanvas" class="mx-auto border-2 border-slate-900 bg-slate-100 shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]"></canvas>
                         </div>
                     </div>
                 </section>
@@ -191,6 +233,78 @@
                                     <textarea id="address" wire:model="address" rows="3" class="mt-1 block w-full px-3 py-2 border-2 border-slate-900 bg-slate-50 focus:bg-white text-xs font-bold uppercase shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] focus:shadow-none focus:translate-x-0.5 focus:translate-y-0.5 transition-all outline-none"></textarea>
                                     @error('address') <span class="text-red-600 text-[10px] font-extrabold uppercase mt-1 block">{{ $message }}</span> @enderror
                                 </div>
+
+                                <!-- File Uploads: Photo & Skin -->
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4">
+                                    <!-- Photo Upload -->
+                                    <div class="space-y-2">
+                                        <label class="block text-xs font-bold text-slate-700 uppercase">Foto Profil</label>
+                                        <label class="group relative flex flex-col items-center justify-center p-4 border-2 border-dashed border-slate-900 bg-slate-50 hover:bg-slate-100 hover:border-primary transition-all cursor-pointer text-center min-h-[120px]">
+                                            <input type="file" wire:model="photo" class="absolute inset-0 opacity-0 cursor-pointer w-full h-full z-10">
+                                            <div class="space-y-1">
+                                                <div class="text-2xl text-slate-400 group-hover:text-primary transition-colors"><i class="fa-solid fa-cloud-arrow-up"></i></div>
+                                                <div class="text-[10px] font-bold text-slate-800">Pilih Foto</div>
+                                                <div class="text-[8px] text-slate-500 font-mono">Min 800KB, Max 2MB</div>
+                                            </div>
+                                            <div wire:loading wire:target="photo" class="absolute inset-0 bg-white/90 z-20 flex flex-col items-center justify-center p-2">
+                                                <i class="fa-solid fa-spinner animate-spin text-primary text-lg"></i>
+                                                <span class="text-[8px] font-bold text-primary mt-1">Mengunggah...</span>
+                                            </div>
+                                            @if ($photo)
+                                                <div class="absolute inset-0 bg-emerald-50 border border-emerald-500 z-30 flex flex-col items-center justify-center p-2">
+                                                    <div class="text-xl text-emerald-500 mb-0.5"><i class="fa-solid fa-circle-check"></i></div>
+                                                    <div class="text-[9px] font-bold text-emerald-800 leading-tight">Foto Siap!</div>
+                                                    <div class="text-[8px] text-emerald-600 truncate max-w-full font-mono mt-0.5">{{ $photo->getClientOriginalName() }}</div>
+                                                </div>
+                                            @elseif ($profile && $profile->photo)
+                                                <div class="absolute inset-0 bg-slate-100 z-30 flex flex-col items-center justify-center p-2">
+                                                    <img src="{{ asset('storage/' . $profile->photo) }}" class="h-10 w-10 rounded-none border-2 border-slate-900 object-cover mb-1">
+                                                    <span class="text-[8px] font-bold text-slate-700">Foto Saat Ini</span>
+                                                </div>
+                                            @endif
+                                        </label>
+                                        @error('photo') <span class="text-red-600 text-[10px] font-extrabold uppercase mt-1 block">{{ $message }}</span> @enderror
+                                    </div>
+
+                                    <!-- Skin Upload -->
+                                    <div class="space-y-2">
+                                        <label class="block text-xs font-bold text-slate-700 uppercase">Skin Minecraft</label>
+                                        <label class="group relative flex flex-col items-center justify-center p-4 border-2 border-dashed border-slate-900 bg-slate-50 hover:bg-slate-100 hover:border-primary transition-all cursor-pointer text-center min-h-[120px]">
+                                            <input type="file" wire:model="skin" @change="
+                                                let file = $event.target.files[0];
+                                                if (file) {
+                                                    let reader = new FileReader();
+                                                    reader.onload = (e) => {
+                                                        $dispatch('update-skin-preview', { url: e.target.result });
+                                                    };
+                                                    reader.readAsDataURL(file);
+                                                }
+                                            " class="absolute inset-0 opacity-0 cursor-pointer w-full h-full z-10">
+                                            <div class="space-y-1">
+                                                <div class="text-2xl text-slate-400 group-hover:text-primary transition-colors"><i class="fa-solid fa-cloud-arrow-up"></i></div>
+                                                <div class="text-[10px] font-bold text-slate-800">Pilih Skin</div>
+                                                <div class="text-[8px] text-slate-500 font-mono">Min 800KB, Max 2MB</div>
+                                            </div>
+                                            <div wire:loading wire:target="skin" class="absolute inset-0 bg-white/90 z-20 flex flex-col items-center justify-center p-2">
+                                                <i class="fa-solid fa-spinner animate-spin text-primary text-lg"></i>
+                                                <span class="text-[8px] font-bold text-primary mt-1">Mengunggah...</span>
+                                            </div>
+                                            @if ($skin)
+                                                <div class="absolute inset-0 bg-emerald-50 border border-emerald-500 z-30 flex flex-col items-center justify-center p-2">
+                                                    <div class="text-xl text-emerald-500 mb-0.5"><i class="fa-solid fa-circle-check"></i></div>
+                                                    <div class="text-[9px] font-bold text-emerald-800 leading-tight">Skin Siap!</div>
+                                                    <div class="text-[8px] text-emerald-600 truncate max-w-full font-mono mt-0.5">{{ $skin->getClientOriginalName() }}</div>
+                                                </div>
+                                            @elseif ($profile && $profile->skin)
+                                                <div class="absolute inset-0 bg-slate-100 z-30 flex flex-col items-center justify-center p-2">
+                                                    <img src="{{ asset('storage/' . $profile->skin) }}" class="h-10 w-10 rounded-none border-2 border-slate-900 object-contain mb-1">
+                                                    <span class="text-[8px] font-bold text-slate-700">Skin Saat Ini</span>
+                                                </div>
+                                            @endif
+                                        </label>
+                                        @error('skin') <span class="text-red-600 text-[10px] font-extrabold uppercase mt-1 block">{{ $message }}</span> @enderror
+                                    </div>
+                                </div>
                             </div>
                         </div>
 
@@ -216,21 +330,36 @@
                             @endif
 
                             <div class="space-y-3">
-                                <div>
+                                <div x-data="{ show: false }">
                                     <label for="current_password" class="block text-xs font-bold text-slate-700 uppercase">Password Saat Ini</label>
-                                    <input type="password" id="current_password" wire:model="current_password" class="mt-1 block w-full px-3 py-2 border-2 border-slate-900 bg-slate-50 focus:bg-white text-xs font-bold shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] focus:shadow-none focus:translate-x-0.5 focus:translate-y-0.5 transition-all outline-none">
+                                    <div class="relative mt-1">
+                                        <input :type="show ? 'text' : 'password'" id="current_password" wire:model="current_password" class="block w-full pr-10 px-3 py-2 border-2 border-slate-900 bg-slate-50 focus:bg-white text-xs font-bold shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] focus:shadow-none focus:translate-x-0.5 focus:translate-y-0.5 transition-all outline-none">
+                                        <button type="button" @click="show = !show" class="absolute inset-y-0 right-0 pr-3 flex items-center text-slate-700 hover:text-slate-900">
+                                            <i class="fa-solid" :class="show ? 'fa-eye-slash' : 'fa-eye'"></i>
+                                        </button>
+                                    </div>
                                     @error('current_password') <span class="text-red-600 text-[10px] font-extrabold uppercase mt-1 block">{{ $message }}</span> @enderror
                                 </div>
 
-                                <div>
+                                <div x-data="{ show: false }">
                                     <label for="new_password" class="block text-xs font-bold text-slate-700 uppercase">Password Baru</label>
-                                    <input type="password" id="new_password" wire:model="new_password" class="mt-1 block w-full px-3 py-2 border-2 border-slate-900 bg-slate-50 focus:bg-white text-xs font-bold shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] focus:shadow-none focus:translate-x-0.5 focus:translate-y-0.5 transition-all outline-none">
+                                    <div class="relative mt-1">
+                                        <input :type="show ? 'text' : 'password'" id="new_password" wire:model="new_password" class="block w-full pr-10 px-3 py-2 border-2 border-slate-900 bg-slate-50 focus:bg-white text-xs font-bold shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] focus:shadow-none focus:translate-x-0.5 focus:translate-y-0.5 transition-all outline-none">
+                                        <button type="button" @click="show = !show" class="absolute inset-y-0 right-0 pr-3 flex items-center text-slate-700 hover:text-slate-900">
+                                            <i class="fa-solid" :class="show ? 'fa-eye-slash' : 'fa-eye'"></i>
+                                        </button>
+                                    </div>
                                     @error('new_password') <span class="text-red-600 text-[10px] font-extrabold uppercase mt-1 block">{{ $message }}</span> @enderror
                                 </div>
 
-                                <div>
+                                <div x-data="{ show: false }">
                                     <label for="new_password_confirmation" class="block text-xs font-bold text-slate-700 uppercase">Konfirmasi Password Baru</label>
-                                    <input type="password" id="new_password_confirmation" wire:model="new_password_confirmation" class="mt-1 block w-full px-3 py-2 border-2 border-slate-900 bg-slate-50 focus:bg-white text-xs font-bold shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] focus:shadow-none focus:translate-x-0.5 focus:translate-y-0.5 transition-all outline-none">
+                                    <div class="relative mt-1">
+                                        <input :type="show ? 'text' : 'password'" id="new_password_confirmation" wire:model="new_password_confirmation" class="block w-full pr-10 px-3 py-2 border-2 border-slate-900 bg-slate-50 focus:bg-white text-xs font-bold shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] focus:shadow-none focus:translate-x-0.5 focus:translate-y-0.5 transition-all outline-none">
+                                        <button type="button" @click="show = !show" class="absolute inset-y-0 right-0 pr-3 flex items-center text-slate-700 hover:text-slate-900">
+                                            <i class="fa-solid" :class="show ? 'fa-eye-slash' : 'fa-eye'"></i>
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                         </div>

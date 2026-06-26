@@ -236,9 +236,9 @@
                         <div class="h-10 w-10 border-2 border-slate-900 bg-secondary text-white flex items-center justify-center font-bold text-sm font-pixel text-lg">
                             04
                         </div>
-                        <h3 class="text-base font-bold text-slate-900 uppercase font-pixel tracking-wide min-h-[3rem] flex items-center">Jalur Beasiswa Ordal (Orang Dalam)</h3>
+                        <h3 class="text-base font-bold text-slate-900 uppercase font-pixel tracking-wide min-h-[3rem] flex items-center">Jalur Beasiswa Kemitraan</h3>
                         <p class="text-xs text-slate-500 leading-relaxed">
-                            Jalur pendaftaran khusus yang mengutamakan koneksi atau relasi orang dalam demi kelancaran proses kelulusan seleksi administrasi.
+                            Jalur pendaftaran bagi calon mahasiswa yang memiliki rekomendasi kemitraan strategis dengan institusi atau civitas akademika UNEMO.
                         </p>
                     </div>
                     <a href="{{ route('smpt.register') }}" wire:navigate class="pt-6 border-t-2 border-slate-900 mt-6 flex justify-between items-center text-xs font-extrabold text-secondary uppercase hover:underline">
