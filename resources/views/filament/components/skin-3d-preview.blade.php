@@ -27,5 +27,5 @@
     }
 }">
     @vite(['resources/js/app.js'])
-    <canvas x-ref="skinCanvas" class="mx-auto border-2 border-slate-900 bg-slate-100 shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]"></canvas>
+    <canvas x-ref="skinCanvas" width="160" height="200" class="mx-auto border-2 border-slate-900 bg-slate-100 shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] w-[160px] h-[200px]"></canvas>
 </div>

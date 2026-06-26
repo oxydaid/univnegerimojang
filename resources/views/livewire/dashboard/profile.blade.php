@@ -153,7 +153,7 @@
                              ">
                              @vite(['resources/js/app.js'])
                              <span class="block text-[10px] font-extrabold text-slate-400 uppercase tracking-wider mb-2">Render Skin 3D</span>
-                             <canvas x-ref="skinCanvas" class="mx-auto border-2 border-slate-900 bg-slate-100 shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]"></canvas>
+                             <canvas x-ref="skinCanvas" width="140" height="180" class="mx-auto border-2 border-slate-900 bg-slate-100 shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] w-[140px] h-[180px]"></canvas>
                         </div>
                     </div>
                 </section>
