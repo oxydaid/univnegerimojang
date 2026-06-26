@@ -1,4 +1,30 @@
-<div class="py-12 bg-brutal-bg min-h-screen font-sans selection:bg-primary/20 selection:text-primary">
+<style>
+    .cbt-no-select {
+        -webkit-touch-callout: none !important;
+        -webkit-user-select: none !important;
+        -khtml-user-select: none !important;
+        -moz-user-select: none !important;
+        -ms-user-select: none !important;
+        user-select: none !important;
+    }
+</style>
+
+<div class="py-12 bg-brutal-bg min-h-screen font-sans selection:bg-primary/20 selection:text-primary select-none cbt-no-select"
+     x-data="{
+         handleKeydown(e) {
+             if (e.key === 'F12') {
+                 e.preventDefault();
+             }
+             if (e.ctrlKey && e.shiftKey && ['I', 'J', 'C', 'i', 'j', 'c'].includes(e.key)) {
+                 e.preventDefault();
+             }
+             if (e.ctrlKey && ['U', 'u', 'S', 's', 'P', 'p', 'C', 'c', 'V', 'v', 'A', 'a'].includes(e.key)) {
+                 e.preventDefault();
+             }
+         }
+     }"
+     @contextmenu.window.prevent=""
+     @keydown.window="handleKeydown($event)">
     <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
         
         <!-- Header -->
