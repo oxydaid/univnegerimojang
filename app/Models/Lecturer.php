@@ -48,9 +48,8 @@ class Lecturer extends Model
     public function formatPhotoName(mixed $file): string
     {
         $extension = $file->getClientOriginalExtension();
-        $slug = Str::slug($this->nip.'-'.$this->user->name);
 
-        return 'lecturers/'.$slug.'.'.$extension;
+        return 'lecturers/'.time().'_'.Str::random(5).'.'.$extension;
     }
 
     /**
@@ -69,9 +68,8 @@ class Lecturer extends Model
     public function formatSkinName(mixed $file): string
     {
         $extension = $file->getClientOriginalExtension();
-        $slug = Str::slug($this->nip.'-'.$this->user->name);
 
-        return 'lecturer-skins/'.$slug.'.'.$extension;
+        return 'lecturer-skins/'.time().'_'.Str::random(5).'.'.$extension;
     }
 
     /**
@@ -90,7 +88,7 @@ class Lecturer extends Model
     public function getAvatarUrl(): string
     {
         if ($this->photo) {
-            return asset($this->photo);
+            return asset('storage/'.$this->photo);
         }
 
         return asset('images/steve.webp');

@@ -5,7 +5,6 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Attributes\Guarded;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Str;
 
 #[Guarded(['id'])]
 class Student extends Model
@@ -29,30 +28,24 @@ class Student extends Model
     }
 
     // Helper method sesuai SOP
-    public function formatPhotoName($file)
+    public function formatPhotoName($file): string
     {
-        $extension = $file->getClientOriginalExtension();
-        $slug = Str::slug($this->nim.'-'.$this->user->name);
-
-        return 'students/'.$slug.'.'.$extension;
+        return 'students/'.time().'_'.str()->random(5).'.'.$file->getClientOriginalExtension();
     }
 
-    public function deleteOldPhoto()
+    public function deleteOldPhoto(): void
     {
         if ($this->photo && Storage::disk('public')->exists($this->photo)) {
             Storage::disk('public')->delete($this->photo);
         }
     }
 
-    public function formatSkinName($file)
+    public function formatSkinName($file): string
     {
-        $extension = $file->getClientOriginalExtension();
-        $slug = Str::slug($this->nim.'-'.$this->user->name);
-
-        return 'student-skins/'.$slug.'.'.$extension;
+        return 'student-skins/'.time().'_'.str()->random(5).'.'.$file->getClientOriginalExtension();
     }
 
-    public function deleteOldSkin()
+    public function deleteOldSkin(): void
     {
         if ($this->skin && Storage::disk('public')->exists($this->skin)) {
             Storage::disk('public')->delete($this->skin);
@@ -65,7 +58,7 @@ class Student extends Model
     public function getAvatarUrl(): string
     {
         if ($this->photo) {
-            return asset($this->photo);
+            return asset('storage/'.$this->photo);
         }
 
         return asset('images/steve.webp');

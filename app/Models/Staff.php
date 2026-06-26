@@ -27,9 +27,8 @@ class Staff extends Model
     public function formatPhotoName(mixed $file): string
     {
         $extension = $file->getClientOriginalExtension();
-        $slug = Str::slug($this->nip.'-'.$this->user->name);
 
-        return 'staff/'.$slug.'.'.$extension;
+        return 'staff/'.time().'_'.Str::random(5).'.'.$extension;
     }
 
     /**
@@ -48,9 +47,8 @@ class Staff extends Model
     public function formatSkinName(mixed $file): string
     {
         $extension = $file->getClientOriginalExtension();
-        $slug = Str::slug($this->nip.'-'.$this->user->name);
 
-        return 'staff-skins/'.$slug.'.'.$extension;
+        return 'staff-skins/'.time().'_'.Str::random(5).'.'.$extension;
     }
 
     /**
@@ -69,7 +67,7 @@ class Staff extends Model
     public function getAvatarUrl(): string
     {
         if ($this->photo) {
-            return asset($this->photo);
+            return asset('storage/'.$this->photo);
         }
 
         return asset('images/steve.webp');

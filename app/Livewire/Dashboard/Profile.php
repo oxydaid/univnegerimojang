@@ -5,6 +5,7 @@ namespace App\Livewire\Dashboard;
 use App\Models\User;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 use Illuminate\Validation\Rules\Password;
 use Livewire\Component;
 use Livewire\WithFileUploads;
@@ -97,11 +98,11 @@ class Profile extends Component
         ];
 
         if ($this->photo) {
-            $rules['photo'] = ['image', 'min:800', 'max:2048'];
+            $rules['photo'] = ['image', 'max:2048'];
         }
 
         if ($this->skin) {
-            $rules['skin'] = ['image', 'min:800', 'max:2048'];
+            $rules['skin'] = ['image', 'max:2048'];
         }
 
         $this->validate($rules);
@@ -134,7 +135,10 @@ class Profile extends Component
                     $this->photo->storeAs('', $fileName, 'public');
                     $updateData['photo'] = $fileName;
                 } else {
-                    $updateData['photo'] = $this->photo->store('profiles', 'public');
+                    $extension = $this->photo->getClientOriginalExtension();
+                    $fileName = 'profiles/'.time().'_'.Str::random(5).'.'.$extension;
+                    $this->photo->storeAs('', $fileName, 'public');
+                    $updateData['photo'] = $fileName;
                 }
             }
 
@@ -147,7 +151,10 @@ class Profile extends Component
                     $this->skin->storeAs('', $fileName, 'public');
                     $updateData['skin'] = $fileName;
                 } else {
-                    $updateData['skin'] = $this->skin->store('skins', 'public');
+                    $extension = $this->skin->getClientOriginalExtension();
+                    $fileName = 'skins/'.time().'_'.Str::random(5).'.'.$extension;
+                    $this->skin->storeAs('', $fileName, 'public');
+                    $updateData['skin'] = $fileName;
                 }
             }
 

@@ -58,7 +58,7 @@ class Admission extends Model
             return $docs[$key];
         }
 
-        return asset($docs[$key]);
+        return asset('storage/'.$docs[$key]);
     }
 
     /**

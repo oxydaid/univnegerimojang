@@ -8,7 +8,7 @@
             <div class="flex-shrink-0 flex items-center">
                 <a href="{{ route('home') }}" wire:navigate class="flex items-center gap-3 group">
                     @if($settings->logo)
-                        <img class="h-10 w-auto object-contain transition-transform duration-300 group-hover:scale-105" src="{{ asset($settings->logo) }}" alt="{{ $settings->app_name }}" width="160" height="40" loading="lazy">
+                        <img class="h-10 w-auto object-contain transition-transform duration-300 group-hover:scale-105" src="{{ asset('storage/' . $settings->logo) }}" alt="{{ $settings->app_name }}" width="160" height="40" loading="lazy">
                     @else
                         <!-- Premium SVG Logo fallback -->
                         <div class="h-11 w-11 rounded-none border-2 border-slate-900 bg-secondary flex items-center justify-center text-white shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] transition-all duration-300 group-hover:rotate-3">

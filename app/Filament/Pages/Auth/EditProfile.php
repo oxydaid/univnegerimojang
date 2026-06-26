@@ -58,21 +58,25 @@ class EditProfile extends BaseEditProfile
             $components[] = FileUpload::make('photo')
                 ->label('Foto Profil')
                 ->image()
+                ->disk('public')
                 ->directory('profiles')
+                ->getUploadedFileNameForStorageUsing(fn ($file) => time().'_'.str()->random(5).'.'.$file->getClientOriginalExtension())
                 ->maxSize(2048)
                 ->nullable();
 
             $components[] = FileUpload::make('skin')
                 ->label('Skin Minecraft (.png)')
                 ->image()
+                ->disk('public')
                 ->directory('skins')
+                ->getUploadedFileNameForStorageUsing(fn ($file) => time().'_'.str()->random(5).'.'.$file->getClientOriginalExtension())
                 ->maxSize(2048)
                 ->nullable();
 
             $components[] = Placeholder::make('skin_3d_preview')
                 ->label('Render Skin 3D')
                 ->content(function () use ($profile) {
-                    $url = $profile->skin ? asset($profile->skin) : '';
+                    $url = $profile->skin ? asset('storage/'.$profile->skin) : '';
 
                     return view('filament.components.skin-3d-preview', ['skinUrl' => $url]);
                 });

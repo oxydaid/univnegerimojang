@@ -56,12 +56,16 @@ class StaffForm
                     ->schema([
                         FileUpload::make('photo')
                             ->image()
+                            ->disk('public')
                             ->directory('staff')
+                            ->getUploadedFileNameForStorageUsing(fn ($file) => time().'_'.str()->random(5).'.'.$file->getClientOriginalExtension())
                             ->default(null),
                         FileUpload::make('skin')
                             ->label('Minecraft Skin')
                             ->image()
+                            ->disk('public')
                             ->directory('staff-skins')
+                            ->getUploadedFileNameForStorageUsing(fn ($file) => time().'_'.str()->random(5).'.'.$file->getClientOriginalExtension())
                             ->rule(Rule::dimensions()->maxWidth(128)->maxHeight(128))
                             ->helperText('Minecraft Skin image (Max size 128x128 pixels)')
                             ->default(null),

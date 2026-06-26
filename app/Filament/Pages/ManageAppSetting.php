@@ -87,15 +87,21 @@ class ManageAppSetting extends Page
                                 ->schema([
                                     FileUpload::make('logo')
                                         ->image()
+                                        ->disk('public')
                                         ->directory('settings')
+                                        ->getUploadedFileNameForStorageUsing(fn ($file) => time().'_'.str()->random(5).'.'.$file->getClientOriginalExtension())
                                         ->default(null),
                                     FileUpload::make('favicon')
                                         ->image()
+                                        ->disk('public')
                                         ->directory('settings')
+                                        ->getUploadedFileNameForStorageUsing(fn ($file) => time().'_'.str()->random(5).'.'.$file->getClientOriginalExtension())
                                         ->default(null),
                                     FileUpload::make('default_share_image')
                                         ->image()
+                                        ->disk('public')
                                         ->directory('settings')
+                                        ->getUploadedFileNameForStorageUsing(fn ($file) => time().'_'.str()->random(5).'.'.$file->getClientOriginalExtension())
                                         ->default(null),
                                 ])
                                 ->columns(3),

@@ -121,7 +121,7 @@
                         <div class="flex flex-col items-center justify-center p-4 border-2 border-slate-900 bg-slate-50 shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]"
                              x-data="{
                                  viewer: null,
-                                 skinUrl: '{{ ($profile && $profile->skin) ? asset($profile->skin) : 'https://crafatar.com/skins/default' }}',
+                                 skinUrl: '{{ ($profile && $profile->skin) ? asset('storage/' . $profile->skin) : 'https://crafatar.com/skins/default' }}',
                                  init() {
                                      this.loadViewer();
                                  },
@@ -258,14 +258,14 @@
                                                 </div>
                                             @elseif ($profile && $profile->photo)
                                                 <div class="absolute inset-0 bg-slate-100 z-30 flex flex-col items-center justify-center p-2">
-                                                    <img src="{{ asset($profile->photo) }}" width="40" height="40" loading="lazy" class="h-10 w-10 rounded-none border-2 border-slate-900 object-cover mb-1">
+                                                    <img src="{{ asset('storage/' . $profile->photo) }}" width="40" height="40" loading="lazy" class="h-10 w-10 rounded-none border-2 border-slate-900 object-cover mb-1">
                                                     <span class="text-[8px] font-bold text-slate-700">Foto Saat Ini</span>
                                                 </div>
                                             @endif
                                         </label>
                                         @error('photo') <span class="text-red-600 text-[10px] font-extrabold uppercase mt-1 block">{{ $message }}</span> @enderror
                                     </div>
-
+ 
                                     <!-- Skin Upload -->
                                     <div class="space-y-2">
                                         <label class="block text-xs font-bold text-slate-700 uppercase">Skin Minecraft</label>
@@ -297,7 +297,7 @@
                                                 </div>
                                             @elseif ($profile && $profile->skin)
                                                 <div class="absolute inset-0 bg-slate-100 z-30 flex flex-col items-center justify-center p-2">
-                                                    <img src="{{ asset($profile->skin) }}" width="40" height="40" loading="lazy" class="h-10 w-10 rounded-none border-2 border-slate-900 object-contain mb-1">
+                                                    <img src="{{ asset('storage/' . $profile->skin) }}" width="40" height="40" loading="lazy" class="h-10 w-10 rounded-none border-2 border-slate-900 object-contain mb-1">
                                                     <span class="text-[8px] font-bold text-slate-700">Skin Saat Ini</span>
                                                 </div>
                                             @endif

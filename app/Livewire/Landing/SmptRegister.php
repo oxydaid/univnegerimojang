@@ -9,6 +9,7 @@ use App\Models\AppSetting;
 use App\Models\Department;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Str;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 
@@ -89,19 +90,27 @@ class SmptRegister extends Component
         $documents = [];
 
         if ($this->skin) {
-            $documents['skin'] = $this->skin->store('admissions/skins', 'public');
+            $extension = $this->skin->getClientOriginalExtension();
+            $fileName = time().'_'.Str::random(5).'.'.$extension;
+            $documents['skin'] = $this->skin->storeAs('admissions/skins', $fileName, 'public');
         }
 
         if ($this->minecraft_stats) {
-            $documents['minecraft_stats'] = $this->minecraft_stats->store('admissions/stats', 'public');
+            $extension = $this->minecraft_stats->getClientOriginalExtension();
+            $fileName = time().'_'.Str::random(5).'.'.$extension;
+            $documents['minecraft_stats'] = $this->minecraft_stats->storeAs('admissions/stats', $fileName, 'public');
         }
 
         if ($this->certificate) {
-            $documents['certificate'] = $this->certificate->store('admissions/certificates', 'public');
+            $extension = $this->certificate->getClientOriginalExtension();
+            $fileName = time().'_'.Str::random(5).'.'.$extension;
+            $documents['certificate'] = $this->certificate->storeAs('admissions/certificates', $fileName, 'public');
         }
 
         if ($this->path === 'prestasi' && $this->achievement_proof) {
-            $documents['achievement_proof'] = $this->achievement_proof->store('admissions/achievements', 'public');
+            $extension = $this->achievement_proof->getClientOriginalExtension();
+            $fileName = time().'_'.Str::random(5).'.'.$extension;
+            $documents['achievement_proof'] = $this->achievement_proof->storeAs('admissions/achievements', $fileName, 'public');
         }
 
         if ($this->path === 'beasiswa') {

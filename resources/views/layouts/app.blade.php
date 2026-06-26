@@ -15,7 +15,7 @@
         <meta property="og:type" content="website">
         <meta property="og:url" content="{{ url()->current() }}">
         @if($settings->default_share_image)
-            <meta property="og:image" content="{{ asset($settings->default_share_image) }}">
+            <meta property="og:image" content="{{ asset('storage/' . $settings->default_share_image) }}">
         @endif
 
         <!-- Google Fonts -->
@@ -25,7 +25,7 @@
 
         <!-- Favicon -->
         @if($settings && $settings->favicon)
-            <link rel="icon" type="image/x-icon" href="{{ asset($settings->favicon) }}">
+            <link rel="icon" type="image/x-icon" href="{{ asset('storage/' . $settings->favicon) }}">
         @else
             <link rel="icon" type="image/x-icon" href="https://laravel.com/img/logomark.min.svg">
         @endif
