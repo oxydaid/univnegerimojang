@@ -296,7 +296,7 @@
             </div>
 
             <!-- Call to Actions -->
-            <div class="bg-primary-pastel border-4 border-slate-900 shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] text-slate-900 p-8 md:p-12 text-center space-y-6 relative overflow-hidden">
+            <div class="bg-primary-pastel border-4 border-slate-900 shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] text-slate-900 p-8 md:p-12 text-center space-y-6 relative overflow-hidden mb-16">
                 <div class="relative z-10 max-w-2xl mx-auto space-y-4">
                     <h3 class="text-2xl md:text-3xl font-extrabold font-pixel text-primary uppercase">Siap Bergabung dengan Universitas Negeri Mojang?</h3>
                     <p class="text-slate-600 text-xs sm:text-sm leading-relaxed max-w-xl mx-auto">
@@ -312,6 +312,55 @@
                     </div>
                 </div>
             </div>
+
+            <!-- MC Servers Section -->
+            @if(collect($servers)->isNotEmpty())
+                <div class="py-16 bg-white border-4 border-slate-900 p-8 md:p-12 shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] mb-16">
+                    <div class="text-center max-w-3xl mx-auto space-y-4 mb-12">
+                        <span class="inline-flex items-center px-4 py-1.5 border-2 border-slate-900 text-xs font-extrabold uppercase tracking-wide bg-emerald-100 text-emerald-800 shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]">
+                            Minecraft Servers
+                        </span>
+                        <h2 class="text-3xl font-extrabold text-slate-900 tracking-tight sm:text-4xl font-pixel uppercase">
+                            Gabung ke In-Game Server Kami
+                        </h2>
+                        <p class="text-xs sm:text-sm text-slate-600">
+                            Universitas Negeri Mojang menyediakan server resmi untuk kuliah virtual, praktikum voxel, dan eksplorasi dunia bersama.
+                        </p>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                        @foreach($servers as $server)
+                            <div class="bg-slate-50 border-4 border-slate-900 p-6 flex flex-col justify-between hover:shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] hover:-translate-y-0.5 transition-all duration-200 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
+                                <div class="space-y-4">
+                                    <div class="flex justify-between items-start gap-2">
+                                        <h3 class="text-sm font-extrabold text-slate-900 uppercase font-pixel tracking-wide truncate">
+                                            {{ $server->name }}
+                                        </h3>
+                                        <span class="inline-flex items-center px-2 py-0.5 border-2 border-slate-900 bg-emerald-400 text-slate-900 text-[8px] font-extrabold uppercase">
+                                            ONLINE
+                                        </span>
+                                    </div>
+                                    <p class="text-xs font-bold text-slate-500 uppercase tracking-wider font-sans">
+                                        IP: {{ $server->ip }}
+                                    </p>
+                                    <div class="flex flex-wrap gap-2 pt-2">
+                                        @foreach($server->ports ?? [] as $portInfo)
+                                            <span class="inline-flex items-center gap-1 px-2 py-0.5 border border-slate-900 bg-white text-[8px] font-bold uppercase">
+                                                {{ strtoupper($portInfo['type']) }}: {{ $portInfo['port'] }}
+                                            </span>
+                                        @endforeach
+                                    </div>
+                                </div>
+                                <div class="mt-6 pt-4 border-t-2 border-slate-200">
+                                    <a href="{{ route('servers.index') }}" wire:navigate class="w-full text-center inline-flex items-center justify-center gap-1.5 px-4 py-2 border-2 border-slate-900 bg-primary text-white font-bold uppercase font-pixel text-[10px] shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] active:translate-x-0.5 active:translate-y-0.5 active:shadow-none transition-all cursor-pointer">
+                                        Lihat Status & Salin IP
+                                    </a>
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
+                </div>
+            @endif
         </div>
     </div>
 </div>

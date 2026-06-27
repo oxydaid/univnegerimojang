@@ -6,6 +6,7 @@ use App\Models\AcademicActivity;
 use App\Models\Department;
 use App\Models\Faculty;
 use App\Models\Lecturer;
+use App\Models\MinecraftServer;
 use App\Models\Student;
 use Illuminate\Contracts\View\View;
 use Livewire\Component;
@@ -26,12 +27,15 @@ class Home extends Component
             ->limit(2)
             ->get();
 
+        $servers = MinecraftServer::where('is_active', true)->get();
+
         return view('livewire.landing.home', [
             'studentCount' => $studentCount,
             'facultyCount' => $facultyCount,
             'departmentCount' => $departmentCount,
             'lecturerCount' => $lecturerCount,
             'upcomingActivities' => $upcomingActivities,
+            'servers' => $servers,
         ]);
     }
 }

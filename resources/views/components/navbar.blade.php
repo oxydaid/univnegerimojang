@@ -46,6 +46,7 @@
                         <a href="{{ route('academic.calendar') }}" wire:navigate class="block px-4 py-2 text-xs font-bold text-slate-700 hover:bg-slate-50 uppercase">Kalender Akademik</a>
                         <a href="{{ route('organization') }}" wire:navigate class="block px-4 py-2 text-xs font-bold text-slate-700 hover:bg-slate-50 uppercase">Struktur Organisasi</a>
                         <a href="{{ route('partner-schools.index') }}" wire:navigate class="block px-4 py-2 text-xs font-bold text-slate-700 hover:bg-slate-50 uppercase">Mitra Sekolah</a>
+                        <a href="{{ route('servers.index') }}" wire:navigate class="block px-4 py-2 text-xs font-bold text-slate-700 hover:bg-slate-50 uppercase">Server Minecraft</a>
                     </div>
                 </div>
 
@@ -79,6 +80,7 @@
                         <a href="{{ route('about') }}" wire:navigate class="block px-4 py-2 text-xs font-bold text-slate-700 hover:bg-slate-50 uppercase">Tentang UNEMO</a>
                         <a href="{{ route('alumni') }}" wire:navigate class="block px-4 py-2 text-xs font-bold text-slate-700 hover:bg-slate-50 uppercase">Alumni</a>
                         <a href="{{ route('contact') }}" wire:navigate class="block px-4 py-2 text-xs font-bold text-slate-700 hover:bg-slate-50 uppercase">Hubungi Kami</a>
+                        <a href="{{ route('donations.index') }}" wire:navigate class="block px-4 py-2 text-xs font-bold text-slate-700 hover:bg-slate-50 uppercase">Donasi UNEMO</a>
                     </div>
                 </div>
             </div>
@@ -151,6 +153,7 @@
                      <a href="{{ route('academic.calendar') }}" wire:navigate class="block px-4 py-2 text-xs font-bold text-slate-600 hover:bg-slate-50 uppercase border-l-2 border-slate-300">Kalender Akademik</a>
                      <a href="{{ route('organization') }}" wire:navigate class="block px-4 py-2 text-xs font-bold text-slate-600 hover:bg-slate-50 uppercase border-l-2 border-slate-300">Struktur Organisasi</a>
                      <a href="{{ route('partner-schools.index') }}" wire:navigate class="block px-4 py-2 text-xs font-bold text-slate-600 hover:bg-slate-50 uppercase border-l-2 border-slate-300">Mitra Sekolah</a>
+                     <a href="{{ route('servers.index') }}" wire:navigate class="block px-4 py-2 text-xs font-bold text-slate-600 hover:bg-slate-50 uppercase border-l-2 border-slate-300">Server Minecraft</a>
                  </div>
              </div>
  
@@ -182,6 +185,7 @@
                      <a href="{{ route('about') }}" wire:navigate class="block px-4 py-2 text-xs font-bold text-slate-600 hover:bg-slate-50 uppercase border-l-2 border-slate-300">Tentang UNEMO</a>
                      <a href="{{ route('alumni') }}" wire:navigate class="block px-4 py-2 text-xs font-bold text-slate-600 hover:bg-slate-50 uppercase border-l-2 border-slate-300">Alumni</a>
                      <a href="{{ route('contact') }}" wire:navigate class="block px-4 py-2 text-xs font-bold text-slate-600 hover:bg-slate-50 uppercase border-l-2 border-slate-300">Hubungi Kami</a>
+                     <a href="{{ route('donations.index') }}" wire:navigate class="block px-4 py-2 text-xs font-bold text-slate-600 hover:bg-slate-50 uppercase border-l-2 border-slate-300">Donasi UNEMO</a>
                  </div>
              </div>
  

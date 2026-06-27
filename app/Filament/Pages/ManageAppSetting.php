@@ -187,6 +187,17 @@ class ManageAppSetting extends Page
                                         ->columnSpanFull(),
                                 ])
                                 ->columns(3),
+
+                            Tab::make('Donasi & QRIS')
+                                ->schema([
+                                    FileUpload::make('qris_image')
+                                        ->label('QR Code QRIS')
+                                        ->image()
+                                        ->disk('public')
+                                        ->directory('settings')
+                                        ->helperText('Unggah gambar QR Code QRIS untuk donasi.')
+                                        ->columnSpanFull(),
+                                ]),
                         ]),
                 ])
                     ->livewireSubmitHandler('save')

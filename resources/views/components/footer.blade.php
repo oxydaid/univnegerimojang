@@ -59,6 +59,8 @@
                     <li><a href="{{ route('faculty') }}" wire:navigate class="text-slate-600 hover:text-primary transition-colors duration-150">Fakultas & Jurusan</a></li>
                     <li><a href="{{ route('organization') }}" wire:navigate class="text-slate-600 hover:text-primary transition-colors duration-150">Struktur Organisasi</a></li>
                     <li><a href="{{ route('partner-schools.index') }}" wire:navigate class="text-slate-600 hover:text-primary transition-colors duration-150">Mitra Sekolah</a></li>
+                    <li><a href="{{ route('servers.index') }}" wire:navigate class="text-slate-600 hover:text-primary transition-colors duration-150">Server Minecraft</a></li>
+                    <li><a href="{{ route('donations.index') }}" wire:navigate class="text-slate-600 hover:text-primary transition-colors duration-150">Donasi UNEMO</a></li>
                     <li><a href="{{ route('about') }}" wire:navigate class="text-slate-600 hover:text-primary transition-colors duration-150">Tentang Kami</a></li>
                     <li><a href="{{ route('smpt.register') }}" wire:navigate class="text-slate-600 hover:text-primary transition-colors duration-150">Pendaftaran SMPT</a></li>
                     <li><a href="{{ route('smpt.guide') }}" wire:navigate class="text-slate-600 hover:text-primary transition-colors duration-150">Panduan SMPT</a></li>
