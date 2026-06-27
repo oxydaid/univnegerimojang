@@ -42,7 +42,7 @@
                 <h3 class="font-extrabold text-slate-900 text-sm uppercase tracking-wider font-pixel">Deskripsi & Rincian Kerja Sama</h3>
                 
                 <!-- Tailwind Typography container for HTML rendering -->
-                <div class="prose max-w-none prose-slate prose-headings:font-extrabold prose-headings:uppercase prose-headings:text-slate-900 prose-p:leading-relaxed prose-a:text-primary prose-a:font-bold prose-strong:text-slate-900 font-sans text-sm border-2 border-slate-900 p-6 bg-slate-50 shadow-[3px_3px_0px_0px_rgba(0,0,0,1)]">
+                <div class="prose max-w-none prose-slate prose-headings:font-extrabold prose-headings:uppercase prose-headings:text-slate-900 prose-p:leading-relaxed prose-a:text-primary prose-a:font-bold prose-strong:text-slate-900 font-sans text-sm pt-2">
                     {!! $school->description !!}
                 </div>
             </div>

@@ -52,7 +52,7 @@ class PartnerSchoolForm
                             ->placeholder('Tulis deskripsi detail kerja sama sekolah...')
                             ->columnSpanFull(),
                     ])
-                    ->columns(3),
+                    ->columns(3)->columnSpanFull(),
             ]);
     }
 }
