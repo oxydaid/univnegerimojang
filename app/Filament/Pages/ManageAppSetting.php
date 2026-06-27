@@ -173,6 +173,17 @@ class ManageAppSetting extends Page
                                     RichEditor::make('announcement_text')
                                         ->label('Teks Pengumuman')
                                         ->placeholder('Tulis teks pengumuman di sini...')
+                                        ->toolbarButtons([
+                                            'bold',
+                                            'italic',
+                                            'underline',
+                                            'strike',
+                                            'subscript',
+                                            'superscript',
+                                            'link',
+                                            'undo',
+                                            'redo',
+                                        ])
                                         ->columnSpanFull(),
                                 ])
                                 ->columns(3),
