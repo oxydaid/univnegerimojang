@@ -12,6 +12,8 @@ use App\Livewire\Landing\Faculty;
 use App\Livewire\Landing\GraduationList;
 use App\Livewire\Landing\Home;
 use App\Livewire\Landing\Organization;
+use App\Livewire\Landing\PartnerSchoolDetail;
+use App\Livewire\Landing\PartnerSchoolList;
 use App\Livewire\Landing\SmptCheck;
 use App\Livewire\Landing\SmptGuide;
 use App\Livewire\Landing\SmptRegister;
@@ -24,6 +26,8 @@ Route::get('/fakultas/{slug}', App\Livewire\Academic\Faculty::class)->name('facu
 Route::get('/jurusan/{slug}', Department::class)->name('department.detail');
 Route::get('/matakuliah/{code}', Course::class)->name('course.detail');
 Route::get('/organisasi', Organization::class)->name('organization');
+Route::get('/mitra-sekolah', PartnerSchoolList::class)->name('partner-schools.index');
+Route::get('/mitra-sekolah/{slug}', PartnerSchoolDetail::class)->name('partner-schools.show');
 Route::get('/tentang', About::class)->name('about');
 Route::get('/kontak', Contact::class)->name('contact');
 Route::get('/alumni', Alumni::class)->name('alumni');

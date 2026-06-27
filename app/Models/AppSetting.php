@@ -16,6 +16,7 @@ class AppSetting extends Model
             'is_development' => 'boolean',
             'spmb_open' => 'boolean',
             'graduation_list_published' => 'boolean',
+            'show_announcement' => 'boolean',
         ];
     }
 

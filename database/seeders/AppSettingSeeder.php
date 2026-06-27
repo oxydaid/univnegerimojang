@@ -56,6 +56,10 @@ class AppSettingSeeder extends Seeder
                 'whatsapp_number' => '6281234567890',
                 'discord_url' => 'https://discord.gg/unemo-overworld',
                 'max_test_questions' => 10,
+                'show_announcement' => true,
+                'announcement_bg_color' => '#1e3a8a',
+                'announcement_text_color' => '#ffffff',
+                'announcement_text' => '📢 <strong>Penerimaan Mahasiswa Baru (PMB) UNEMO 2026/2027 Telah Dibuka!</strong> <span class="hidden sm:inline">[Jalur Prestasi & Ujian Survival]</span>',
             ]
         );
 

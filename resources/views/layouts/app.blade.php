@@ -55,15 +55,20 @@
     <body class="bg-brutal-bg text-slate-900 antialiased flex flex-col min-h-screen selection:bg-primary/20 selection:text-primary">
         
         <!-- Announcement Bar -->
-        <div x-data="{ showAnnounce: true }" x-show="showAnnounce" class="bg-primary text-white border-b-4 border-slate-900 text-xs md:text-sm py-3 px-4 relative flex items-center justify-between transition-all duration-200">
-            <div class="flex items-center gap-2 mx-auto pr-6">
-                <span class="inline-flex items-center justify-center bg-white text-primary border-2 border-slate-900 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]">PMB</span>
-                <span class="font-bold text-center uppercase font-pixel tracking-wide text-sm">📢 Penerimaan Mahasiswa Baru (PMB) UNEMO 2026/2027 Telah Dibuka! <span class="hidden sm:inline">[Jalur Prestasi & Ujian Survival]</span></span>
+        @if($settings && $settings->show_announcement)
+            <div x-data="{ showAnnounce: true }" x-show="showAnnounce" 
+                 style="background-color: {{ $settings->announcement_bg_color }}; color: {{ $settings->announcement_text_color }}; border-color: #0f172a;"
+                 class="border-b-4 text-xs md:text-sm py-3 px-4 relative flex items-center justify-between transition-all duration-200">
+                <div class="flex items-center gap-2 mx-auto pr-6 prose prose-sm max-w-none" style="--tw-prose-body: {{ $settings->announcement_text_color }}; --tw-prose-bold: {{ $settings->announcement_text_color }}; --tw-prose-headings: {{ $settings->announcement_text_color }}; color: {{ $settings->announcement_text_color }};">
+                    {!! $settings->announcement_text !!}
+                </div>
+                <button @click="showAnnounce = false" 
+                        style="background-color: #0f172a; border-color: #0f172a; color: #ffffff;"
+                        class="hover:opacity-90 transition-opacity p-1 border-2 shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] rounded-none absolute right-3 flex items-center justify-center cursor-pointer">
+                    <i class="fa-solid fa-xmark text-xs"></i>
+                </button>
             </div>
-            <button @click="showAnnounce = false" class="text-white hover:text-slate-100 transition-colors duration-150 p-1 border-2 border-slate-900 bg-slate-900 shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] rounded-none absolute right-3 flex items-center justify-center cursor-pointer">
-                <i class="fa-solid fa-xmark text-xs"></i>
-            </button>
-        </div>
+        @endif
 
         <!-- Reusable Navbar -->
         <x-navbar />

@@ -7,6 +7,7 @@ use BackedEnum;
 use Filament\Actions\Action;
 use Filament\Forms\Components\ColorPicker;
 use Filament\Forms\Components\FileUpload;
+use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
@@ -155,6 +156,26 @@ class ManageAppSetting extends Page
                                     TextInput::make('whatsapp_number')->default(null),
                                 ])
                                 ->columns(2),
+
+                            Tab::make('Announcement Bar')
+                                ->schema([
+                                    Toggle::make('show_announcement')
+                                        ->label('Tampilkan Announcement Bar')
+                                        ->default(true),
+                                    ColorPicker::make('announcement_bg_color')
+                                        ->label('Warna Background')
+                                        ->required()
+                                        ->default('#1e3a8a'),
+                                    ColorPicker::make('announcement_text_color')
+                                        ->label('Warna Teks')
+                                        ->required()
+                                        ->default('#ffffff'),
+                                    RichEditor::make('announcement_text')
+                                        ->label('Teks Pengumuman')
+                                        ->placeholder('Tulis teks pengumuman di sini...')
+                                        ->columnSpanFull(),
+                                ])
+                                ->columns(3),
                         ]),
                 ])
                     ->livewireSubmitHandler('save')

@@ -45,6 +45,7 @@
                         <a href="{{ route('faculty') }}" wire:navigate class="block px-4 py-2 text-xs font-bold text-slate-700 hover:bg-slate-50 uppercase">Fakultas</a>
                         <a href="{{ route('academic.calendar') }}" wire:navigate class="block px-4 py-2 text-xs font-bold text-slate-700 hover:bg-slate-50 uppercase">Kalender Akademik</a>
                         <a href="{{ route('organization') }}" wire:navigate class="block px-4 py-2 text-xs font-bold text-slate-700 hover:bg-slate-50 uppercase">Struktur Organisasi</a>
+                        <a href="{{ route('partner-schools.index') }}" wire:navigate class="block px-4 py-2 text-xs font-bold text-slate-700 hover:bg-slate-50 uppercase">Mitra Sekolah</a>
                     </div>
                 </div>
 
@@ -149,6 +150,7 @@
                      <a href="{{ route('faculty') }}" wire:navigate class="block px-4 py-2 text-xs font-bold text-slate-600 hover:bg-slate-50 uppercase border-l-2 border-slate-300">Fakultas</a>
                      <a href="{{ route('academic.calendar') }}" wire:navigate class="block px-4 py-2 text-xs font-bold text-slate-600 hover:bg-slate-50 uppercase border-l-2 border-slate-300">Kalender Akademik</a>
                      <a href="{{ route('organization') }}" wire:navigate class="block px-4 py-2 text-xs font-bold text-slate-600 hover:bg-slate-50 uppercase border-l-2 border-slate-300">Struktur Organisasi</a>
+                     <a href="{{ route('partner-schools.index') }}" wire:navigate class="block px-4 py-2 text-xs font-bold text-slate-600 hover:bg-slate-50 uppercase border-l-2 border-slate-300">Mitra Sekolah</a>
                  </div>
              </div>
  

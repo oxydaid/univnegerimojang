@@ -5,7 +5,6 @@ namespace App\Providers;
 use App\Models\AppSetting;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Schema;
-use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -29,32 +28,29 @@ class AppServiceProvider extends ServiceProvider
             return $user->hasRole('Super Admin') ? true : null;
         });
 
-        // Share AppSetting globally in views
-        try {
-            if (Schema::hasTable('app_settings')) {
-                $settings = AppSetting::first();
-                if (! $settings) {
+        view()->composer('*', function ($view) {
+            try {
+                if (Schema::hasTable('app_settings')) {
+                    $settings = AppSetting::first() ?? new AppSetting([
+                        'app_name' => 'UNEMO Universitas Modern',
+                        'primary_color' => '#1e3a8a',
+                        'secondary_color' => '#d97706',
+                    ]);
+                } else {
                     $settings = new AppSetting([
                         'app_name' => 'UNEMO Universitas Modern',
                         'primary_color' => '#1e3a8a',
                         'secondary_color' => '#d97706',
                     ]);
                 }
-            } else {
+            } catch (\Throwable $e) {
                 $settings = new AppSetting([
                     'app_name' => 'UNEMO Universitas Modern',
                     'primary_color' => '#1e3a8a',
                     'secondary_color' => '#d97706',
                 ]);
             }
-        } catch (\Throwable $e) {
-            $settings = new AppSetting([
-                'app_name' => 'UNEMO Universitas Modern',
-                'primary_color' => '#1e3a8a',
-                'secondary_color' => '#d97706',
-            ]);
-        }
-
-        View::share('settings', $settings);
+            $view->with('settings', $settings);
+        });
     }
 }
