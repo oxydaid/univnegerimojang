@@ -116,6 +116,9 @@
 @else
     <div class="py-12 bg-brutal-bg min-h-screen font-sans selection:bg-primary/20 selection:text-primary select-none cbt-no-select"
          x-data="{
+             isTimeUp: {{ $endTimestamp - time() <= 0 ? 'true' : 'false' }},
+             timeLeft: {{ max(0, $endTimestamp - time()) }},
+             timerText: '',
              handleKeydown(e) {
                  if (e.key === 'F12') {
                      e.preventDefault();
@@ -126,6 +129,29 @@
                  if (e.ctrlKey && ['U', 'u', 'S', 's', 'P', 'p', 'C', 'c', 'V', 'v', 'A', 'a'].includes(e.key)) {
                      e.preventDefault();
                  }
+             },
+             init() {
+                 this.updateText();
+                 if (this.timeLeft <= 0) {
+                     this.isTimeUp = true;
+                     $wire.submitTimeout();
+                     return;
+                 }
+                 let timer = setInterval(() => {
+                     if (this.timeLeft <= 0) {
+                         clearInterval(timer);
+                         this.isTimeUp = true;
+                         $wire.submitTimeout();
+                         return;
+                     }
+                     this.timeLeft--;
+                     this.updateText();
+                 }, 1000);
+             },
+             updateText() {
+                 let minutes = Math.floor(this.timeLeft / 60);
+                 let seconds = this.timeLeft % 60;
+                 this.timerText = String(minutes).padStart(2, '0') + ':' + String(seconds).padStart(2, '0');
              }
          }"
          @contextmenu.window.prevent=""
@@ -160,27 +186,7 @@
             </div>
 
             <!-- Sticky Floating Countdown Timer (Alpine.js) -->
-            <div class="fixed bottom-6 right-6 z-50" x-data="{
-                timeLeft: {{ max(0, $endTimestamp - time()) }},
-                timerText: '',
-                init() {
-                    this.updateText();
-                    let timer = setInterval(() => {
-                        if (this.timeLeft <= 0) {
-                            clearInterval(timer);
-                            $wire.submitTimeout();
-                            return;
-                        }
-                        this.timeLeft--;
-                        this.updateText();
-                    }, 1000);
-                },
-                updateText() {
-                    let minutes = Math.floor(this.timeLeft / 60);
-                    let seconds = this.timeLeft % 60;
-                    this.timerText = String(minutes).padStart(2, '0') + ':' + String(seconds).padStart(2, '0');
-                }
-            }">
+            <div class="fixed bottom-6 right-6 z-50">
                 <div class="flex flex-col items-center bg-yellow-300 border-4 border-slate-900 p-4 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] min-w-[120px]">
                     <span class="text-[9px] font-extrabold text-slate-800 uppercase tracking-wider mb-1">Sisa Waktu</span>
                     <div class="flex items-center gap-2">
@@ -195,7 +201,8 @@
                 <form wire:submit.prevent="submit" class="space-y-6">
                     @php $index = 1; @endphp
                     @foreach($sortedQuestions as $q)
-                        <div class="bg-white border-4 border-slate-900 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] p-6 space-y-4">
+                        <div class="bg-white border-4 border-slate-900 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] p-6 space-y-4"
+                             :class="isTimeUp ? 'opacity-60' : ''">
                             <!-- Question Header -->
                             <div class="flex items-start gap-3">
                                 <span class="h-8 w-8 rounded-none border-2 border-slate-900 bg-primary text-white flex items-center justify-center font-bold font-pixel text-sm flex-shrink-0">
@@ -213,8 +220,9 @@
                                         $optionKey = $opt['key'];
                                         $optionText = $opt['text'];
                                     @endphp
-                                    <label class="flex items-center gap-3 p-3 border-2 border-slate-200 hover:border-slate-800 cursor-pointer transition-colors duration-150 {{ ($answers[$q->id] ?? '') === $optionKey ? 'border-primary bg-primary/5 text-primary' : 'bg-slate-50' }}">
-                                        <input type="radio" name="answers_{{ $q->id }}" wire:model="answers.{{ $q->id }}" value="{{ $optionKey }}" class="h-4 w-4 text-primary focus:ring-primary border-slate-300">
+                                    <label class="flex items-center gap-3 p-3 border-2 transition-colors duration-150 {{ ($answers[$q->id] ?? '') === $optionKey ? 'border-primary bg-primary/5 text-primary' : 'border-slate-200 bg-slate-50 hover:border-slate-800' }}"
+                                           :class="isTimeUp ? 'cursor-not-allowed opacity-60' : 'cursor-pointer'">
+                                        <input type="radio" :disabled="isTimeUp" name="answers_{{ $q->id }}" wire:model="answers.{{ $q->id }}" value="{{ $optionKey }}" class="h-4 w-4 text-primary focus:ring-primary border-slate-300">
                                         <span class="text-xs font-bold font-mono">{{ $optionKey }}.</span>
                                         <span class="text-xs sm:text-sm font-semibold text-slate-700">{{ $optionText }}</span>
                                     </label>
@@ -235,7 +243,8 @@
                             <h4 class="font-bold text-slate-800 text-sm">Sudah yakin dengan jawaban Anda?</h4>
                             <p class="text-xxs text-slate-500">Ujian tidak dapat diulang setelah Anda menekan tombol kirim di samping.</p>
                         </div>
-                        <button type="submit" wire:loading.attr="disabled" class="w-full sm:w-auto inline-flex items-center justify-center px-6 py-3.5 border-4 border-slate-900 bg-primary hover:bg-primary/95 text-white font-extrabold uppercase font-pixel tracking-wider text-base shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] active:translate-x-0.5 active:translate-y-0.5 active:shadow-none transition-all cursor-pointer">
+                        <button type="submit" :disabled="isTimeUp" wire:loading.attr="disabled" class="w-full sm:w-auto inline-flex items-center justify-center px-6 py-3.5 border-4 border-slate-900 bg-primary hover:bg-primary/95 text-white font-extrabold uppercase font-pixel tracking-wider text-base shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] active:translate-x-0.5 active:translate-y-0.5 active:shadow-none transition-all cursor-pointer"
+                                :class="isTimeUp ? 'cursor-not-allowed opacity-50' : 'cursor-pointer'">
                             <span wire:loading class="mr-2">
                                 <i class="fa-solid fa-spinner animate-spin"></i>
                             </span>

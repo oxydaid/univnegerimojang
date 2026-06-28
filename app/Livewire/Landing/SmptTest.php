@@ -99,11 +99,13 @@ class SmptTest extends Component
 
     public function submitTimeout()
     {
-        $this->submit(app(TestService::class), true);
+        $this->submit(true);
     }
 
-    public function submit(TestService $testService, bool $isTimeout = false)
+    public function submit(bool $isTimeout = false)
     {
+        $testService = app(TestService::class);
+
         // Validate that all questions are answered, but skip if timer expired (timeout)
         if (! $isTimeout) {
             foreach ($this->questionIds as $qid) {
