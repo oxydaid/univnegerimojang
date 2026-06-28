@@ -214,7 +214,7 @@
                                         $optionText = $opt['text'];
                                     @endphp
                                     <label class="flex items-center gap-3 p-3 border-2 border-slate-200 hover:border-slate-800 cursor-pointer transition-colors duration-150 {{ ($answers[$q->id] ?? '') === $optionKey ? 'border-primary bg-primary/5 text-primary' : 'bg-slate-50' }}">
-                                        <input type="radio" wire:model="answers.{{ $q->id }}" value="{{ $optionKey }}" class="h-4 w-4 text-primary focus:ring-primary border-slate-300">
+                                        <input type="radio" name="answers_{{ $q->id }}" wire:model="answers.{{ $q->id }}" value="{{ $optionKey }}" class="h-4 w-4 text-primary focus:ring-primary border-slate-300">
                                         <span class="text-xs font-bold font-mono">{{ $optionKey }}.</span>
                                         <span class="text-xs sm:text-sm font-semibold text-slate-700">{{ $optionText }}</span>
                                     </label>
