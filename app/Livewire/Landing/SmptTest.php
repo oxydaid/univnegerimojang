@@ -33,8 +33,31 @@ class SmptTest extends Component
             ->where('path', 'test')
             ->firstOrFail();
 
-        // If they already finished the test, redirect them
+        // If they already finished the test, check if they are viewing the review
         if ($this->admission->test_score !== null) {
+            if (session()->get('viewing_review_'.$this->registration_number)) {
+                $this->showReview = true;
+                $this->finalScore = $this->admission->test_score;
+
+                $sessionQIdsKey = 'smpt_test_q_ids_'.$this->registration_number;
+                $sessionOptsKey = 'smpt_test_opts_'.$this->registration_number;
+                if (session()->has($sessionQIdsKey) && session()->has($sessionOptsKey)) {
+                    $this->questionIds = session($sessionQIdsKey);
+                    $this->shuffledOptions = session($sessionOptsKey);
+                }
+
+                $sessionAnswersKey = 'smpt_test_answers_'.$this->registration_number;
+                if (session()->has($sessionAnswersKey)) {
+                    $this->answers = session($sessionAnswersKey);
+                } else {
+                    foreach ($this->questionIds as $qid) {
+                        $this->answers[$qid] = '';
+                    }
+                }
+
+                return;
+            }
+
             session()->flash('success_registration', $this->registration_number);
 
             return redirect()->route('smpt.check');
@@ -132,16 +155,22 @@ class SmptTest extends Component
         $this->finalScore = $score;
         $this->showReview = true;
 
-        // Clean up test session data
-        session()->forget([
-            'smpt_test_q_ids_'.$this->registration_number,
-            'smpt_test_opts_'.$this->registration_number,
-            'smpt_test_end_'.$this->registration_number,
-        ]);
+        // Set viewing review flag and answers in session so we can view the review even on refresh
+        session()->put('viewing_review_'.$this->registration_number, true);
+        session()->put('smpt_test_answers_'.$this->registration_number, $this->answers);
     }
 
     public function finishReview()
     {
+        // Clean up test session data and viewing review flag
+        session()->forget([
+            'smpt_test_q_ids_'.$this->registration_number,
+            'smpt_test_opts_'.$this->registration_number,
+            'smpt_test_end_'.$this->registration_number,
+            'viewing_review_'.$this->registration_number,
+            'smpt_test_answers_'.$this->registration_number,
+        ]);
+
         session()->flash('success_registration', $this->registration_number);
         session()->flash('test_score_achieved', $this->finalScore);
 
