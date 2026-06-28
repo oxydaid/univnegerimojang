@@ -20,7 +20,10 @@ class SmptTest extends Component
 
     public ?int $endTimestamp = null;
 
-    // Array to store selected answers: [question_id => 'A'/'B'/'C'/'D']
+    public bool $showReview = false;
+
+    public int $finalScore = 0;
+
     public array $answers = [];
 
     public function mount(string $registration_number)
@@ -124,16 +127,21 @@ class SmptTest extends Component
             'status_notes' => 'Ujian online selesai. Skor Anda: '.$score.' / 100. Menunggu review panitia.',
         ]);
 
+        $this->finalScore = $score;
+        $this->showReview = true;
+
         // Clean up test session data
         session()->forget([
             'smpt_test_q_ids_'.$this->registration_number,
             'smpt_test_opts_'.$this->registration_number,
             'smpt_test_end_'.$this->registration_number,
         ]);
+    }
 
-        // Redirect to status check page
+    public function finishReview()
+    {
         session()->flash('success_registration', $this->registration_number);
-        session()->flash('test_score_achieved', $score);
+        session()->flash('test_score_achieved', $this->finalScore);
 
         return redirect()->route('smpt.check');
     }

@@ -162,14 +162,14 @@
                             <!-- Skin Minecraft -->
                             <div class="space-y-2">
                                 <label class="block text-sm font-bold text-slate-800">
-                                    <i class="fa-solid fa-shirt mr-1.5 text-primary"></i> Skin (.png, min 800KB)
+                                    <i class="fa-solid fa-shirt mr-1.5 text-primary"></i> Skin (.png, Opsional)
                                 </label>
                                 <label class="group relative flex flex-col items-center justify-center p-6 border-2 border-dashed border-slate-900 bg-slate-50 hover:bg-slate-100 hover:border-primary transition-all cursor-pointer text-center min-h-[160px]">
                                     <input type="file" wire:model="skin" class="absolute inset-0 opacity-0 cursor-pointer w-full h-full z-10">
                                     <div class="space-y-2">
                                         <div class="text-3xl text-slate-400 group-hover:text-primary transition-colors"><i class="fa-solid fa-cloud-arrow-up"></i></div>
                                         <div class="text-xs font-bold text-slate-800">Pilih Berkas Skin</div>
-                                        <div class="text-[10px] text-slate-500 font-mono">Min 800KB, Max 2MB</div>
+                                        <div class="text-[10px] text-slate-500 font-mono">Max 2MB</div>
                                     </div>
                                     <div wire:loading wire:target="skin" class="absolute inset-0 bg-white/90 z-20 flex flex-col items-center justify-center p-4">
                                         <i class="fa-solid fa-spinner animate-spin text-primary text-2xl"></i>
@@ -186,59 +186,61 @@
                                 @error('skin') <span class="text-xs text-rose-600 font-semibold block mt-1">{{ $message }}</span> @enderror
                             </div>
 
-                            <!-- Rapot (Minecraft Stats) -->
-                            <div class="space-y-2">
-                                <label class="block text-sm font-bold text-slate-800">
-                                    <i class="fa-solid fa-chart-simple mr-1.5 text-primary"></i> SS Statistik (min 800KB)
-                                </label>
-                                <label class="group relative flex flex-col items-center justify-center p-6 border-2 border-dashed border-slate-900 bg-slate-50 hover:bg-slate-100 hover:border-primary transition-all cursor-pointer text-center min-h-[160px]">
-                                    <input type="file" wire:model="minecraft_stats" class="absolute inset-0 opacity-0 cursor-pointer w-full h-full z-10">
-                                    <div class="space-y-2">
-                                        <div class="text-3xl text-slate-400 group-hover:text-primary transition-colors"><i class="fa-solid fa-cloud-arrow-up"></i></div>
-                                        <div class="text-xs font-bold text-slate-800">Pilih SS Statistik</div>
-                                        <div class="text-[10px] text-slate-500 font-mono">Min 800KB, Max 2MB</div>
-                                    </div>
-                                    <div wire:loading wire:target="minecraft_stats" class="absolute inset-0 bg-white/90 z-20 flex flex-col items-center justify-center p-4">
-                                        <i class="fa-solid fa-spinner animate-spin text-primary text-2xl"></i>
-                                        <span class="text-xxs font-bold text-primary mt-1">Mengunggah...</span>
-                                    </div>
-                                    @if ($minecraft_stats)
-                                        <div class="absolute inset-0 bg-emerald-50 border border-emerald-500 z-30 flex flex-col items-center justify-center p-4">
-                                            <div class="text-2xl text-emerald-500 mb-1"><i class="fa-solid fa-circle-check"></i></div>
-                                            <div class="text-[10px] font-bold text-emerald-800 leading-tight">Statistik Terunggah!</div>
-                                            <div class="text-[9px] text-emerald-600 truncate max-w-full font-mono mt-0.5">{{ $minecraft_stats->getClientOriginalName() }}</div>
+                            @if($path !== 'test')
+                                <!-- Rapot (Minecraft Stats) -->
+                                <div class="space-y-2">
+                                    <label class="block text-sm font-bold text-slate-800">
+                                        <i class="fa-solid fa-chart-simple mr-1.5 text-primary"></i> SS Statistik (Max 2MB)
+                                    </label>
+                                    <label class="group relative flex flex-col items-center justify-center p-6 border-2 border-dashed border-slate-900 bg-slate-50 hover:bg-slate-100 hover:border-primary transition-all cursor-pointer text-center min-h-[160px]">
+                                        <input type="file" wire:model="minecraft_stats" class="absolute inset-0 opacity-0 cursor-pointer w-full h-full z-10">
+                                        <div class="space-y-2">
+                                            <div class="text-3xl text-slate-400 group-hover:text-primary transition-colors"><i class="fa-solid fa-cloud-arrow-up"></i></div>
+                                            <div class="text-xs font-bold text-slate-800">Pilih SS Statistik</div>
+                                            <div class="text-[10px] text-slate-500 font-mono">Max 2MB</div>
                                         </div>
-                                    @endif
-                                </label>
-                                @error('minecraft_stats') <span class="text-xs text-rose-600 font-semibold block mt-1">{{ $message }}</span> @enderror
-                            </div>
+                                        <div wire:loading wire:target="minecraft_stats" class="absolute inset-0 bg-white/90 z-20 flex flex-col items-center justify-center p-4">
+                                            <i class="fa-solid fa-spinner animate-spin text-primary text-2xl"></i>
+                                            <span class="text-xxs font-bold text-primary mt-1">Mengunggah...</span>
+                                        </div>
+                                        @if ($minecraft_stats)
+                                            <div class="absolute inset-0 bg-emerald-50 border border-emerald-500 z-30 flex flex-col items-center justify-center p-4">
+                                                <div class="text-2xl text-emerald-500 mb-1"><i class="fa-solid fa-circle-check"></i></div>
+                                                <div class="text-[10px] font-bold text-emerald-800 leading-tight">Statistik Terunggah!</div>
+                                                <div class="text-[9px] text-emerald-600 truncate max-w-full font-mono mt-0.5">{{ $minecraft_stats->getClientOriginalName() }}</div>
+                                            </div>
+                                        @endif
+                                    </label>
+                                    @error('minecraft_stats') <span class="text-xs text-rose-600 font-semibold block mt-1">{{ $message }}</span> @enderror
+                                </div>
 
-                            <!-- Ijazah -->
-                            <div class="space-y-2">
-                                <label class="block text-sm font-bold text-slate-800">
-                                    <i class="fa-solid fa-certificate mr-1.5 text-primary"></i> Ijazah (min 800KB)
-                                </label>
-                                <label class="group relative flex flex-col items-center justify-center p-6 border-2 border-dashed border-slate-900 bg-slate-50 hover:bg-slate-100 hover:border-primary transition-all cursor-pointer text-center min-h-[160px]">
-                                    <input type="file" wire:model="certificate" class="absolute inset-0 opacity-0 cursor-pointer w-full h-full z-10">
-                                    <div class="space-y-2">
-                                        <div class="text-3xl text-slate-400 group-hover:text-primary transition-colors"><i class="fa-solid fa-cloud-arrow-up"></i></div>
-                                        <div class="text-xs font-bold text-slate-800">Pilih Berkas Ijazah</div>
-                                        <div class="text-[10px] text-slate-500 font-mono">Min 800KB, Max 2MB</div>
-                                    </div>
-                                    <div wire:loading wire:target="certificate" class="absolute inset-0 bg-white/90 z-20 flex flex-col items-center justify-center p-4">
-                                        <i class="fa-solid fa-spinner animate-spin text-primary text-2xl"></i>
-                                        <span class="text-xxs font-bold text-primary mt-1">Mengunggah...</span>
-                                    </div>
-                                    @if ($certificate)
-                                        <div class="absolute inset-0 bg-emerald-50 border border-emerald-500 z-30 flex flex-col items-center justify-center p-4">
-                                            <div class="text-2xl text-emerald-500 mb-1"><i class="fa-solid fa-circle-check"></i></div>
-                                            <div class="text-[10px] font-bold text-emerald-800 leading-tight">Ijazah Terunggah!</div>
-                                            <div class="text-[9px] text-emerald-600 truncate max-w-full font-mono mt-0.5">{{ $certificate->getClientOriginalName() }}</div>
+                                <!-- Ijazah -->
+                                <div class="space-y-2">
+                                    <label class="block text-sm font-bold text-slate-800">
+                                        <i class="fa-solid fa-certificate mr-1.5 text-primary"></i> Ijazah (Max 2MB)
+                                    </label>
+                                    <label class="group relative flex flex-col items-center justify-center p-6 border-2 border-dashed border-slate-900 bg-slate-50 hover:bg-slate-100 hover:border-primary transition-all cursor-pointer text-center min-h-[160px]">
+                                        <input type="file" wire:model="certificate" class="absolute inset-0 opacity-0 cursor-pointer w-full h-full z-10">
+                                        <div class="space-y-2">
+                                            <div class="text-3xl text-slate-400 group-hover:text-primary transition-colors"><i class="fa-solid fa-cloud-arrow-up"></i></div>
+                                            <div class="text-xs font-bold text-slate-800">Pilih Berkas Ijazah</div>
+                                            <div class="text-[10px] text-slate-500 font-mono">Max 2MB</div>
                                         </div>
-                                    @endif
-                                </label>
-                                @error('certificate') <span class="text-xs text-rose-600 font-semibold block mt-1">{{ $message }}</span> @enderror
-                            </div>
+                                        <div wire:loading wire:target="certificate" class="absolute inset-0 bg-white/90 z-20 flex flex-col items-center justify-center p-4">
+                                            <i class="fa-solid fa-spinner animate-spin text-primary text-2xl"></i>
+                                            <span class="text-xxs font-bold text-primary mt-1">Mengunggah...</span>
+                                        </div>
+                                        @if ($certificate)
+                                            <div class="absolute inset-0 bg-emerald-50 border border-emerald-500 z-30 flex flex-col items-center justify-center p-4">
+                                                <div class="text-2xl text-emerald-500 mb-1"><i class="fa-solid fa-circle-check"></i></div>
+                                                <div class="text-[10px] font-bold text-emerald-800 leading-tight">Ijazah Terunggah!</div>
+                                                <div class="text-[9px] text-emerald-600 truncate max-w-full font-mono mt-0.5">{{ $certificate->getClientOriginalName() }}</div>
+                                            </div>
+                                        @endif
+                                    </label>
+                                    @error('certificate') <span class="text-xs text-rose-600 font-semibold block mt-1">{{ $message }}</span> @enderror
+                                </div>
+                            @endif
                         </div>
 
                         <!-- Conditional Prestasi Proof Input -->

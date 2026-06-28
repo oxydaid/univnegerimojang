@@ -71,13 +71,19 @@ class SmptRegister extends Component
             'path' => 'required|in:prestasi,nilai,test,beasiswa',
         ];
 
-        // Conditional validations for uploads (skin, rapot/stats, certificate are required for all)
-        $rules['skin'] = 'required|image|min:800|max:2048'; // Min 800KB, Max 2MB
-        $rules['minecraft_stats'] = 'required|image|min:800|max:2048'; // Min 800KB, Max 2MB
-        $rules['certificate'] = 'required|image|min:800|max:2048'; // Min 800KB, Max 2MB
+        // Conditional validations for uploads
+        $rules['skin'] = 'nullable|image|max:2048'; // Skin is optional
+
+        if ($this->path !== 'test') {
+            $rules['minecraft_stats'] = 'required|image|max:2048'; // Max 2MB, no min limit
+            $rules['certificate'] = 'required|image|max:2048'; // Max 2MB, no min limit
+        } else {
+            $rules['minecraft_stats'] = 'nullable|image|max:2048';
+            $rules['certificate'] = 'nullable|image|max:2048';
+        }
 
         if ($this->path === 'prestasi') {
-            $rules['achievement_proof'] = 'required|image|min:800|max:2048';
+            $rules['achievement_proof'] = 'required|image|max:2048';
         }
 
         if ($this->path === 'beasiswa') {

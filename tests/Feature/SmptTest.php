@@ -27,14 +27,14 @@ test('smpt check status page renders successfully', function () {
     $this->get(route('smpt.check'))->assertStatus(200);
 });
 
-test('smpt registration and quiz flow works', function () {
+test('smpt registration and quiz flow works with all documents', function () {
     Storage::fake('public');
 
     $dept = Department::first();
 
-    $skin = UploadedFile::fake()->create('skin.png', 900);
-    $stats = UploadedFile::fake()->create('stats.jpg', 900);
-    $cert = UploadedFile::fake()->create('cert.png', 900);
+    $skin = UploadedFile::fake()->create('skin.png', 300);
+    $stats = UploadedFile::fake()->create('stats.jpg', 300);
+    $cert = UploadedFile::fake()->create('cert.png', 300);
 
     // Register with 'test' path
     Livewire::test(SmptRegister::class)
@@ -55,13 +55,11 @@ test('smpt registration and quiz flow works', function () {
     expect($admission)->not->toBeNull();
     expect($admission->path)->toBe('test');
     expect($admission->status)->toBe('pending');
-    expect($admission->documents)->toHaveKeys(['skin', 'minecraft_stats', 'certificate']);
 
     // Take the test
     $questions = Question::all();
     $answers = [];
     foreach ($questions as $q) {
-        // Send correct answers to get 100
         $answers[$q->id] = $q->correct_answer;
     }
 
@@ -73,4 +71,55 @@ test('smpt registration and quiz flow works', function () {
     // Verify test score is updated to 100
     $admission->refresh();
     expect($admission->test_score)->toBe(100);
+});
+
+test('smpt registration test path works without stats and certificate and without skin', function () {
+    Storage::fake('public');
+
+    $dept = Department::first();
+
+    // Register with 'test' path but no documents uploaded
+    Livewire::test(SmptRegister::class)
+        ->set('name', 'Alex Builder')
+        ->set('email', 'alex@example.com')
+        ->set('phone', '08123456788')
+        ->set('high_school', 'SMAN 2 Mojang')
+        ->set('department_id', $dept->id)
+        ->set('path', 'test')
+        ->set('skin', null)
+        ->set('minecraft_stats', null)
+        ->set('certificate', null)
+        ->call('submit')
+        ->assertHasNoErrors();
+
+    $admission = Admission::where('email', 'alex@example.com')->first();
+    expect($admission)->not->toBeNull();
+    expect($admission->documents)->toBeEmpty();
+});
+
+test('smpt registration other paths require stats and certificate but skin is optional', function () {
+    Storage::fake('public');
+
+    $dept = Department::first();
+    $stats = UploadedFile::fake()->create('stats.jpg', 300);
+    $cert = UploadedFile::fake()->create('cert.png', 300);
+
+    // Register with 'nilai' path, skin is omitted (null)
+    Livewire::test(SmptRegister::class)
+        ->set('name', 'Steve Miner')
+        ->set('email', 'steve@example.com')
+        ->set('phone', '08123456787')
+        ->set('high_school', 'SMAN 3 Mojang')
+        ->set('department_id', $dept->id)
+        ->set('path', 'nilai')
+        ->set('skin', null)
+        ->set('minecraft_stats', $stats)
+        ->set('certificate', $cert)
+        ->call('submit')
+        ->assertHasNoErrors();
+
+    $admission = Admission::where('email', 'steve@example.com')->first();
+    expect($admission)->not->toBeNull();
+    expect($admission->documents)->toHaveKeys(['minecraft_stats', 'certificate']);
+    expect($admission->documents)->not->toHaveKey('skin');
 });
