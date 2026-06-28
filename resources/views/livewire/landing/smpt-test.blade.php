@@ -25,8 +25,33 @@
                             Review Hasil Jawaban Anda
                         </h1>
                         <p class="text-xxs sm:text-xs text-slate-400">
-                            Skor Akhir: <strong class="text-emerald-400 text-sm font-pixel">{{ $finalScore }} / 100</strong> (Pendaftar: {{ $admission->name }})
+                            Evaluasi lembar jawaban pendaftaran portal SMPT UNEMO.
                         </p>
+                    </div>
+                </div>
+
+                <!-- Score Card -->
+                <div class="bg-yellow-300 border-4 border-slate-900 p-8 shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] flex flex-col sm:flex-row justify-between items-center gap-6">
+                    <div class="space-y-2 text-center sm:text-left">
+                        <span class="inline-flex items-center px-3 py-1 bg-slate-900 text-yellow-300 text-xs font-black uppercase tracking-wider">
+                            SKOR UJIAN ONLINE
+                        </span>
+                        <h2 class="text-2xl font-black text-slate-900 font-pixel uppercase">
+                            Hasil Evaluasi Teoretis
+                        </h2>
+                        <p class="text-xs text-slate-850 font-semibold leading-relaxed">
+                            Nama Calon Mahasiswa: <strong class="text-slate-950">{{ $admission->name }}</strong><br>
+                            Nomor Pendaftaran: <strong class="text-slate-950 font-mono">{{ $admission->registration_number }}</strong>
+                        </p>
+                    </div>
+                    <div class="bg-white border-4 border-slate-900 p-4 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] text-center min-w-[160px] w-full sm:w-auto">
+                        <span class="text-[10px] font-black text-slate-500 uppercase tracking-widest block mb-1">SKOR AKHIR</span>
+                        <span class="font-pixel text-5xl font-black {{ $finalScore >= 70 ? 'text-emerald-600' : 'text-rose-600' }}">
+                            {{ $finalScore }}
+                        </span>
+                        <span class="text-slate-400 font-bold block text-xs border-t-2 border-slate-200 mt-2 pt-1">
+                            SKALA 100
+                        </span>
                     </div>
                 </div>
 
