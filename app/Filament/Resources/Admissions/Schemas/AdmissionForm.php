@@ -83,10 +83,17 @@ class AdmissionForm
                             ->columnSpanFull(),
 
                         Placeholder::make('test_review')
-                            ->label('Detail Jawaban Ujian')
+                            ->label('Halaman Livewire Test')
                             ->visible(fn ($record) => $record && $record->path === 'test' && $record->test_score !== null)
                             ->columnSpanFull()
-                            ->content(fn ($record) => view('filament.resources.admissions.pages.view-test-results', ['record' => $record])),
+                            ->content(fn ($record) => new HtmlString(
+                                '<div class="rounded-lg border border-slate-200 bg-slate-50 p-4">'
+                                .'<p class="mb-3 text-sm text-slate-600">Detail jawaban dipindahkan ke halaman Livewire test.</p>'
+                                .'<a href="'.route('smpt.test', $record->registration_number).'" class="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-primary/90" target="_blank" rel="noopener noreferrer">'
+                                .'Buka Halaman Livewire Test'
+                                .'</a>'
+                                .'</div>'
+                            )),
                     ])
                     ->columns(2),
 
