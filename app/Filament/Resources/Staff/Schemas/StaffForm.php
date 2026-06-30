@@ -23,6 +23,7 @@ class StaffForm
                             ->relationship('user', 'name')
                             ->required()
                             ->searchable()
+                            ->preload()
                             ->placeholder('Select a user account...')
                             ->prefixIcon('heroicon-o-user'),
                         TextInput::make('nip')

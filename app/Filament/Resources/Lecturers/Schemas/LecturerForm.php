@@ -22,12 +22,14 @@ class LecturerForm
                         Select::make('user_id')
                             ->relationship('user', 'name')
                             ->required()
+                            ->preload()
                             ->searchable()
                             ->placeholder('Select a user account...')
                             ->prefixIcon('heroicon-o-user'),
                         Select::make('department_id')
                             ->relationship('department', 'name')
                             ->required()
+                            ->preload()
                             ->searchable()
                             ->placeholder('Select a department...')
                             ->prefixIcon('heroicon-o-academic-cap'),
