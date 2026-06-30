@@ -146,9 +146,15 @@ class SmptTest extends Component
         $questions = Question::whereIn('id', $this->questionIds)->get();
         $score = $testService->calculateScore($this->answers, $questions);
 
-        // Update test score
+        // Update test score and save question/answer configuration in documents
+        $documents = $this->admission->documents ?? [];
+        $documents['test_questions'] = $this->questionIds;
+        $documents['test_answers'] = $this->answers;
+        $documents['shuffled_options'] = $this->shuffledOptions;
+
         $this->admission->update([
             'test_score' => $score,
+            'documents' => $documents,
             'status_notes' => 'Ujian online selesai. Skor Anda: '.$score.' / 100. Menunggu review panitia.',
         ]);
 

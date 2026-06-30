@@ -24,6 +24,7 @@ return new class extends Migration
             $table->integer('test_score')->nullable();
             $table->string('status')->default('pending'); // pending, accepted, rejected
             $table->text('status_notes')->nullable();
+            $table->foreignId('academic_year_id')->nullable()->constrained()->nullOnDelete();
             $table->timestamps();
         });
     }

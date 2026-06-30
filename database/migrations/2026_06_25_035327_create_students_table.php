@@ -21,6 +21,10 @@ return new class extends Migration
             $table->string('photo')->nullable();
             $table->string('tiktok')->nullable();
             $table->string('skin')->nullable();
+            $table->decimal('gpa', 3, 2)->default(0.00);
+            $table->json('achievements')->nullable();
+            $table->integer('credit_hours')->default(0);
+            $table->integer('current_semester')->default(1);
             $table->timestamps();
         });
     }

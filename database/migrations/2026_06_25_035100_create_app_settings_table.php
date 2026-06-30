@@ -38,6 +38,22 @@ return new class extends Migration
             $table->string('tiktok_url')->nullable();
             $table->string('whatsapp_number')->nullable();
             $table->string('discord_url')->nullable(); // Khusus UNIMO!
+            $table->string('email')->nullable();
+
+            // SPMB & CBT Settings
+            $table->boolean('spmb_open')->default(true);
+            $table->boolean('graduation_list_published')->default(true);
+            $table->integer('max_test_questions')->default(10);
+
+            // Announcement Settings
+            $table->boolean('show_announcement')->default(true);
+            $table->string('announcement_bg_color')->default('#1e3a8a');
+            $table->string('announcement_text_color')->default('#ffffff');
+            $table->text('announcement_text')->nullable();
+
+            // QRIS Settings
+            $table->string('qris_image')->nullable();
+
             $table->timestamps();
         });
     }

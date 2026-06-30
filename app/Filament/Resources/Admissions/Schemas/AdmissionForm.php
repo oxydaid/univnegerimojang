@@ -81,16 +81,23 @@ class AdmissionForm
                             ->label('Catatan Kelulusan (Tampil ke Mahasiswa)')
                             ->placeholder('Tuliskan alasan penolakan atau ucapan selamat...')
                             ->columnSpanFull(),
+
+                        Placeholder::make('test_review')
+                            ->label('Detail Jawaban Ujian')
+                            ->visible(fn ($record) => $record && $record->path === 'test' && $record->test_score !== null)
+                            ->columnSpanFull()
+                            ->content(fn ($record) => view('filament.resources.admissions.pages.view-test-results', ['record' => $record])),
                     ])
                     ->columns(2),
 
                 Section::make('Dokumen Pendukung')
                     ->description('Berkas Minecraft yang diunggah oleh pendaftar.')
                     ->schema([
-                        TextInput::make('documents.ordal_code')
+                        Placeholder::make('doc_ordal_code')
                             ->label('Kode Referensi Kemitraan')
-                            ->disabled()
-                            ->placeholder('Tidak menggunakan kode kemitraan'),
+                            ->content(fn ($record) => $record && isset($record->documents['ordal_code'])
+                                ? $record->documents['ordal_code']
+                                : 'Tidak menggunakan kode kemitraan'),
 
                         Placeholder::make('doc_skin')
                             ->label('Minecraft Skin')

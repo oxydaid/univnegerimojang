@@ -68,9 +68,10 @@ test('smpt registration and quiz flow works with all documents', function () {
         ->call('submit')
         ->assertHasNoErrors();
 
-    // Verify test score is updated to 100
+    // Verify test score is updated to 100 and review data is captured
     $admission->refresh();
     expect($admission->test_score)->toBe(100);
+    expect($admission->documents)->toHaveKeys(['test_questions', 'test_answers', 'shuffled_options']);
 });
 
 test('smpt registration test path works without stats and certificate and without skin', function () {
